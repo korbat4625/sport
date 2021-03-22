@@ -1,0 +1,52 @@
+$pc-media: 960px;
+$pcs-media: 959px;
+$pad-media: 768px;
+$pads-media: 759px;
+$phone-media: 480px;
+$phones-media: 479px;
+
+//電腦
+@mixin pc-width() {
+  @media all and (min-width: $pc-media) {
+    @content;
+  }
+}
+//平板
+@mixin pad-width() {
+  @media all and (max-width: $pad-media) {
+    @content;
+  }
+}
+//小平板
+@mixin small-pad-width() {
+  @media all and (min-width: $phone-media) and (max-width: $pads-media) {
+    @content;
+  }
+}
+//手機
+@mixin phone-width() {
+  @media all and (max-width: $phones-media) {
+    @content;
+  }
+}
+
+
+%header_footer {
+    position: relative;
+    height: 320px;
+    background-repeat: no-repeat;
+    background-position: center 80%;
+    background-size: cover;
+    //   object-fit: cover;
+    .nav > li.nav-item a,
+    ::v-deep .dropdown .nav-link {
+      color: lavender;
+      font-size: 1.2rem;
+      font-family: 微軟正黑體;
+    }
+}
+
+@mixin header_footer_mixin () {
+    @extend %header_footer;
+    @content;
+}

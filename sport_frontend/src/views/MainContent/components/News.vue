@@ -60,7 +60,7 @@ export default {
       news7: '',
       news8: '',
       news9: '',
-      news10: '',
+      news10: ''
     };
   },
   created() {
@@ -68,61 +68,61 @@ export default {
       imgSrc: 'https://picsum.photos/1024/480/?image=9',
       title: '新聞標題1新聞標題1新聞標題1',
       footText: '曼聯曼聯曼聯111',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news2 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=50',
       title: '新聞標題2新聞標題2新聞標題2',
       footText: '曼聯曼聯曼聯222',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news3 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=12',
       title: '新聞標題3新聞標題3新聞標題3',
       footText: '曼聯曼聯曼聯333',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news4 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=5',
       title: '新聞標題4新聞標題4新聞標題4',
       footText: '曼聯曼聯曼聯444',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news5 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=1',
       title: '新聞標題5新聞標題5新聞標題5',
       footText: '曼聯曼聯曼聯555',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news6 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=56',
       title: '新聞標題6新聞標題6新聞標題6',
       footText: '曼聯曼聯曼聯666',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news7 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=99',
       title: '新聞標題7新聞標題7新聞標題7',
       footText: '曼聯曼聯曼聯777',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news8 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=67',
       title: '新聞標題4新聞標題8新聞標題8',
       footText: '曼聯曼聯曼聯888',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news9 = this.setNews({
       imgSrc: 'https://picsum.photos/1028/480/?image=73',
       title: '新聞標題4新聞標題9新聞標題9',
       footText: '曼聯曼聯曼聯999',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
     this.news10 = this.setNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=30',
       title: '新聞標題4新聞標題10新聞標題10',
       footText: '曼聯曼聯曼聯101010',
-      time: '2020/02/02',
+      time: '2020/02/02'
     });
   },
   methods: {
@@ -153,7 +153,7 @@ export default {
         </div>
       `;
       return html;
-    },
+    }
     // setNews(imgSrc, newsTitle, newsFooter) {
     //   const template = `
     //     <div class="news__head--third d-inline-block">
@@ -170,7 +170,7 @@ export default {
     //     </div>
     //   `;
     // },
-  },
+  }
 };
 </script>
 

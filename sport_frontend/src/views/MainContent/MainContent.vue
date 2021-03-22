@@ -11,8 +11,8 @@ import News from './components/News';
 export default {
   components: {
     Slide,
-    News,
-  },
+    News
+  }
 };
 </script>
 

@@ -31,9 +31,9 @@ import logo from './assets/logo.png';
 export default {
   data() {
     return {
-      logo: logo,
+      logo: logo
     };
-  },
+  }
 };
 </script>
 

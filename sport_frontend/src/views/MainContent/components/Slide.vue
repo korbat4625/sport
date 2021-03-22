@@ -103,8 +103,8 @@ export default {
     onSlideEnd(slide) {
       this.sliding = false;
       console.log(slide);
-    },
-  },
+    }
+  }
 };
 </script>
 

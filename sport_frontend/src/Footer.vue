@@ -31,9 +31,9 @@ import footerLogo from './assets/logo.png';
 export default {
   data() {
     return {
-      footerLogo: footerLogo,
+      footerLogo: footerLogo
     };
-  },
+  }
 };
 </script>
 

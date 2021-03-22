@@ -12,11 +12,11 @@ import Footer from './Footer';
 export default {
   components: {
     Header,
-    Footer,
+    Footer
   },
   data() {
     return {};
-  },
+  }
 };
 </script>
 

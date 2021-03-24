@@ -15,6 +15,11 @@ const routes = [
         component: () => import('@/views/MainContent/components/Game.vue')
       }
     ]
+  },
+  {
+    path: '/more',
+    name: 'MoreNews',
+    component: () => import('@/views/MoreContent/MoreNews.vue')
   }
 ];
 

@@ -12,8 +12,8 @@
                 <b-nav-item to="/">首頁新聞</b-nav-item>
                 <b-nav-item to="/game">測試</b-nav-item>
                 <b-nav-item-dropdown text="賽事/盃賽" center>
-                  <b-dropdown-item to="#">EN</b-dropdown-item>
-                  <b-dropdown-item to="#">ES</b-dropdown-item>
+                  <b-dropdown-item to="#">台灣聯賽</b-dropdown-item>
+                  <b-dropdown-item to="#">歐洲杯</b-dropdown-item>
                   <b-dropdown-item to="#">RU</b-dropdown-item>
                   <b-dropdown-item to="#">FA</b-dropdown-item>
                 </b-nav-item-dropdown>

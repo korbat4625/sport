@@ -21,7 +21,7 @@
           <template #img>
             <div class="img-container">
               <img
-                src="https://picsum.photos/1024/480/?image=52"
+                src="https://picsum.photos/1024/480/?image=6"
                 alt="image slot"
               />
             </div>
@@ -33,7 +33,7 @@
           <template #img>
             <div class="img-container">
               <img
-                src="https://picsum.photos/1024/480/?image=54"
+                src="https://picsum.photos/1024/480/?image=8"
                 alt="image slot"
               />
             </div>
@@ -45,7 +45,7 @@
           <template #img>
             <div class="img-container">
               <img
-                src="https://picsum.photos/1024/480/?image=58"
+                src="https://picsum.photos/1024/480/?image=456"
                 alt="image slot"
               />
             </div>
@@ -58,7 +58,7 @@
           <template #img>
             <div class="img-container">
               <img
-                src="https://picsum.photos/1024/480/?image=55"
+                src="https://picsum.photos/1024/480/?image=789"
                 alt="image slot"
               />
             </div>
@@ -70,7 +70,7 @@
           <template #img>
             <div class="img-container">
               <img
-                src="https://picsum.photos/1024/480/?image=51"
+                src="https://picsum.photos/1024/480/?image=98"
                 alt="image slot"
               />
             </div>

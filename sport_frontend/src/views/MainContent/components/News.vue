@@ -15,7 +15,11 @@
           </b-row>
         </b-col>
         <b-col lg="4">
-          <div class="news news__second">廣告</div>
+          <div
+            class="news news__second d-flex justify-content-center align-items-center"
+          >
+            廣告
+          </div>
         </b-col>
         <b-col lg="4 mt-3">
           <div class="news news__third" v-html="news5"></div>
@@ -39,8 +43,10 @@
     </b-col>
     <b-col cols="10" offset="1">
       <b-row>
-        <b-col cols="4 text-center my-5" offset="4">
-          <b-button class="more">更多</b-button>
+        <b-col cols="12" md="4 text-center my-5" offset-md="4">
+          <b-button class="more" :to="{ name: 'MoreNews' }" variant="info">
+            更多
+          </b-button>
         </b-col>
       </b-row>
     </b-col>
@@ -133,7 +139,7 @@ export default {
             alt="image slot"
         /></div
         ><div class="news__body d-inline-block">
-          ${title}</div
+          <h5>${title}</h5></div
         ><div class="news__foot"
         ><div class="news__foot__content">${footText} <span>${time}</span></div>
         </div>
@@ -147,7 +153,7 @@ export default {
             alt="image slot"
         /></div
         ><div class="news__body--third d-inline-block">
-          ${title}</div
+          <h5>${title}</h5></div
         ><div class="news__foot--third"
         ><div class="news__foot__content">${footText} <span>${time}</span></div>
         </div>
@@ -215,10 +221,17 @@ export default {
 .news__body {
   height: 50%;
   text-align: center;
-  padding: 2.5rem;
+  padding: 1rem;
+  h4 {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
 }
 .news__foot {
-  border-top: solid 1px black;
+  border-top: solid 1px #ddd;
   height: 10%;
   padding: 0.3rem;
   @extend %foot-style;
@@ -226,7 +239,7 @@ export default {
 .news__head--third {
   vertical-align: top;
   width: 40%;
-  height: 80%;
+  height: 60%;
   img {
     object-fit: cover;
     max-width: 100%;
@@ -236,21 +249,30 @@ export default {
 .news__body--third {
   vertical-align: top;
   width: 60%;
-  height: 80%;
+  height: 60%;
   text-align: center;
-  padding: 2.5rem;
+  padding: 1rem;
+  h4 {
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
 }
 .news__foot--third {
-  border-top: solid 1px black;
-  height: 20%;
+  border-top: solid 1px #ddd;
+  height: 40%;
   padding: 0.3rem;
   @extend %foot-style;
 }
-.more.btn-secondary {
+.more.btn-info {
   width: 100%;
   height: 50px;
   background-color: #00a9ce;
   border-width: 0;
+  padding-top: 0.8rem;
+
   &:hover {
     background-color: #008aaf;
   }

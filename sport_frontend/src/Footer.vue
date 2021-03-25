@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="p-0">
+  <b-container fluid class="p-0 footer__container">
     <b-row>
       <b-col cols="12">
         <footer class="footer-nav">
@@ -71,4 +71,9 @@ export default {
 .footer-info {
   padding-top: 16rem;
 }
+
+// .footer__container {
+//   position: fixed;
+//   bottom: 0;
+// }
 </style>

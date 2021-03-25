@@ -8,7 +8,6 @@
       </b-row>
       <b-carousel
         id="carousel-1"
-        v-model="slide"
         :interval="4000"
         fade
         indicators
@@ -19,11 +18,15 @@
       >
         <b-carousel-slide>
           <template #img>
-            <div class="img-container">
-              <img
-                src="https://picsum.photos/1024/480/?image=6"
-                alt="image slot"
-              />
+            <div class="d-flex h-100">
+              <div class="img-container">
+                <img :src="slide1.imgSrc" alt="image slot" />
+              </div>
+              <div
+                class="big-title d-flex justify-content-center align-items-center"
+              >
+                <h2>{{ slide1.title }}</h2>
+              </div>
             </div>
           </template>
         </b-carousel-slide>
@@ -31,11 +34,15 @@
         <!-- Slides with custom text -->
         <b-carousel-slide>
           <template #img>
-            <div class="img-container">
-              <img
-                src="https://picsum.photos/1024/480/?image=8"
-                alt="image slot"
-              />
+            <div class="d-flex h-100">
+              <div class="img-container">
+                <img :src="slide2.imgSrc" alt="image slot" />
+              </div>
+              <div
+                class="big-title d-flex justify-content-center align-items-center"
+              >
+                <h2>{{ slide2.title }}</h2>
+              </div>
             </div>
           </template>
         </b-carousel-slide>
@@ -43,11 +50,15 @@
         <!-- Slides with image only -->
         <b-carousel-slide>
           <template #img>
-            <div class="img-container">
-              <img
-                src="https://picsum.photos/1024/480/?image=456"
-                alt="image slot"
-              />
+            <div class="d-flex h-100">
+              <div class="img-container">
+                <img :src="slide3.imgSrc" alt="image slot" />
+              </div>
+              <div
+                class="big-title d-flex justify-content-center align-items-center"
+              >
+                <h2>{{ slide3.title }}</h2>
+              </div>
             </div>
           </template>
         </b-carousel-slide>
@@ -56,11 +67,15 @@
         <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
         <b-carousel-slide>
           <template #img>
-            <div class="img-container">
-              <img
-                src="https://picsum.photos/1024/480/?image=789"
-                alt="image slot"
-              />
+            <div class="d-flex h-100">
+              <div class="img-container">
+                <img :src="slide4.imgSrc" alt="image slot" />
+              </div>
+              <div
+                class="big-title d-flex justify-content-center align-items-center"
+              >
+                <h2>{{ slide4.title }}</h2>
+              </div>
             </div>
           </template>
         </b-carousel-slide>
@@ -68,20 +83,19 @@
         <!-- Slide with blank fluid image to maintain slide aspect ratio -->
         <b-carousel-slide>
           <template #img>
-            <div class="img-container">
-              <img
-                src="https://picsum.photos/1024/480/?image=98"
-                alt="image slot"
-              />
+            <div class="d-flex h-100">
+              <div class="img-container">
+                <img :src="slide5.imgSrc" alt="image slot" />
+              </div>
+              <div
+                class="big-title d-flex justify-content-center align-items-center"
+              >
+                <h2>{{ slide5.title }}</h2>
+              </div>
             </div>
           </template>
         </b-carousel-slide>
       </b-carousel>
-
-      <!-- <p class="">
-        Slide #: {{ slide }}<br />
-        Sliding: {{ sliding }}
-      </p> -->
     </b-col>
   </b-row>
 </template>
@@ -90,9 +104,29 @@
 export default {
   data() {
     return {
-      slide: 0,
-      sliding: null,
-      app: 0
+      slide1: {
+        imgSrc: 'https://picsum.photos/1024/480/?image=9',
+        title:
+          '大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1'
+      },
+      slide2: {
+        imgSrc: 'https://picsum.photos/1024/480/?image=69',
+        title: '大標題2大標題2大標題2大標題2大標題1大標題1大標題1大標題1'
+      },
+      slide3: {
+        imgSrc: 'https://picsum.photos/1024/480/?image=159',
+        title:
+          '大標題3大標題3大標題3大標題3大標題3大標題1大標題1大標題1大標題1大標題1'
+      },
+      slide4: {
+        imgSrc: 'https://picsum.photos/1024/480/?image=229',
+        title: '大標題4大標題4大標題'
+      },
+      slide5: {
+        imgSrc: 'https://picsum.photos/1024/480/?image=879',
+        title:
+          '大標題5大標題5大標題5大標題5大標題5大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1'
+      }
     };
   },
   methods: {
@@ -125,15 +159,14 @@ export default {
 }
 
 ol.carousel-indicators {
-  display: flex;
-  justify-content: flex-end;
+  margin-left: 58%;
 }
 
 .img-container {
   position: relative;
-
+  width: 40%;
   img {
-    width: 40% !important;
+    width: 100% !important;
     height: 100%;
   }
 
@@ -146,6 +179,10 @@ ol.carousel-indicators {
     border-color: transparent #007bff transparent transparent;
     z-index: 999;
   }
+}
+.big-title {
+  width: 60%;
+  padding: 1.5rem;
 }
 .soccer-title {
   height: 60px;

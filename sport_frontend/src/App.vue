@@ -24,6 +24,7 @@ export default {
 html,
 body {
   background-color: #e3e5e6 !important;
+  overflow-x: hidden;
 }
 
 #app {

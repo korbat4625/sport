@@ -3,14 +3,26 @@
     <b-col cols="10" offset="1">
       <b-row>
         <b-col lg="4" class="sub-new">
-          <div class="news news__second" v-html="news1"></div>
+          <div class="news news__second" v-html="news1" @click="gotoNews(1)">
+            >
+          </div>
         </b-col>
         <b-col lg="4">
           <b-row class="h-100">
             <b-col cols="12 d-flex justify-content-between flex-column">
-              <div class="news news__third" v-html="news2"></div>
-              <div class="news news__third" v-html="news3"></div>
-              <div class="news news__third" v-html="news4"></div>
+              <div
+                class="news news__third"
+                v-html="news2"
+                @click="gotoNews(2)"
+              ></div>
+              <div
+                class="news news__third"
+                v-html="news3"
+                @click="gotoNews(3)"
+              ></div>
+              <div class="news news__third" v-html="news4" @click="gotoNews(4)">
+                >
+              </div>
             </b-col>
           </b-row>
         </b-col>
@@ -22,22 +34,34 @@
           </div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news5"></div>
+          <div class="news news__third" v-html="news5" @click="gotoNews(5)">
+            >
+          </div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news6"></div>
+          <div class="news news__third" v-html="news6" @click="gotoNews(6)">
+            >
+          </div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news7"></div>
+          <div class="news news__third" v-html="news7" @click="gotoNews(7)">
+            >
+          </div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news8"></div>
+          <div class="news news__third" v-html="news8" @click="gotoNews(8)">
+            >
+          </div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news9"></div>
+          <div class="news news__third" v-html="news9" @click="gotoNews(9)">
+            >
+          </div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news10"></div>
+          <div class="news news__third" v-html="news10" @click="gotoNews(10)">
+            >
+          </div>
         </b-col>
       </b-row>
     </b-col>
@@ -54,6 +78,7 @@
 </template>
 
 <script>
+import router from '../../../router';
 export default {
   data() {
     return {
@@ -71,13 +96,13 @@ export default {
   },
   created() {
     this.news1 = this.setFirstNews({
-      imgSrc: 'https://picsum.photos/1024/480/?image=9',
+      imgSrc: 'https://picsum.photos/1024/480/?image=943',
       title: '新聞標題1新聞標題1新聞標題1',
       footText: '曼聯曼聯曼聯111',
       time: '2020/02/02'
     });
     this.news2 = this.setNews({
-      imgSrc: 'https://picsum.photos/1024/480/?image=2',
+      imgSrc: 'https://picsum.photos/1024/480/?image=46',
       title: '新聞標題222222222新聞標題222222222新聞標題222222222',
       footText: '曼聯曼聯曼聯222',
       time: '2020/02/02'
@@ -132,6 +157,9 @@ export default {
     });
   },
   methods: {
+    gotoNews(news) {
+      router.push('/news/' + news);
+    },
     setFirstNews({ imgSrc, title, footText, time }) {
       const html = `
         <div class="news__head d-inline-block"><img
@@ -189,6 +217,10 @@ export default {
 .news {
   position: relative;
   background-color: #fff;
+  transition-duration: 0.2s;
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 .news__second {
   height: 100%;

@@ -49,6 +49,7 @@ export default {
     return {
       reports: [
         {
+          // 時間區塊開始
           timeTitle: this.timeSetting(2020, 3, 14),
           contents: [
             {
@@ -70,7 +71,7 @@ export default {
               time: '2020/02/02'
             }
           ]
-        },
+        }, // 時間區塊結束
         {
           timeTitle: this.timeSetting(2020, 3, 12),
           contents: [

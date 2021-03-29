@@ -20,6 +20,12 @@ const routes = [
     path: '/more',
     name: 'MoreNews',
     component: () => import('@/views/MoreContent/MoreNews.vue')
+  },
+
+  {
+    path: '/news/:newsID',
+    component: () => import('@/views/MainContent/components/NewsPage.vue'),
+    props: true
   }
 ];
 

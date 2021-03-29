@@ -2,31 +2,35 @@
   <b-row>
     <b-col cols="10" offset="1">
       <b-row>
-        <b-col lg="4" class="sub-new">
-          <div class="news news__second" v-html="news1" @click="gotoNews(1)">
-            >
-          </div>
+        <b-col lg="4 mt-3" class="sub-new">
+          <div
+            class="news news__second"
+            v-html="news1"
+            @click="gotoNews(1)"
+          ></div>
         </b-col>
-        <b-col lg="4">
+        <b-col lg="4 mt-3">
           <b-row class="h-100">
             <b-col cols="12 d-flex justify-content-between flex-column">
               <div
-                class="news news__third"
+                class="news news__third mt-lg-0 mt-3"
                 v-html="news2"
                 @click="gotoNews(2)"
               ></div>
               <div
-                class="news news__third"
+                class="news news__third mt-lg-0 mt-3"
                 v-html="news3"
                 @click="gotoNews(3)"
               ></div>
-              <div class="news news__third" v-html="news4" @click="gotoNews(4)">
-                >
-              </div>
+              <div
+                class="news news__third mt-lg-0 mt-3"
+                v-html="news4"
+                @click="gotoNews(4)"
+              ></div>
             </b-col>
           </b-row>
         </b-col>
-        <b-col lg="4">
+        <b-col lg="4 mt-3">
           <div
             class="news news__second d-flex justify-content-center align-items-center"
           >
@@ -34,34 +38,46 @@
           </div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news5" @click="gotoNews(5)">
-            >
-          </div>
+          <div
+            class="news news__third"
+            v-html="news5"
+            @click="gotoNews(5)"
+          ></div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news6" @click="gotoNews(6)">
-            >
-          </div>
+          <div
+            class="news news__third"
+            v-html="news6"
+            @click="gotoNews(6)"
+          ></div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news7" @click="gotoNews(7)">
-            >
-          </div>
+          <div
+            class="news news__third"
+            v-html="news7"
+            @click="gotoNews(7)"
+          ></div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news8" @click="gotoNews(8)">
-            >
-          </div>
+          <div
+            class="news news__third"
+            v-html="news8"
+            @click="gotoNews(8)"
+          ></div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news9" @click="gotoNews(9)">
-            >
-          </div>
+          <div
+            class="news news__third"
+            v-html="news9"
+            @click="gotoNews(9)"
+          ></div>
         </b-col>
         <b-col lg="4 mt-3">
-          <div class="news news__third" v-html="news10" @click="gotoNews(10)">
-            >
-          </div>
+          <div
+            class="news news__third"
+            v-html="news10"
+            @click="gotoNews(10)"
+          ></div>
         </b-col>
       </b-row>
     </b-col>

@@ -1,18 +1,18 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import MainContent from '@/views/MainContent/MainContent.vue';
+import Homepage from '@/views/Homepage/Homepage.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'MainContent',
-    component: MainContent,
+    name: 'Homepage',
+    component: Homepage,
     children: [
       {
         path: 'games',
-        component: () => import('@/views/MainContent/components/Game.vue')
+        component: () => import('@/views/Homepage/components/Game.vue')
       }
     ]
   },
@@ -24,7 +24,7 @@ const routes = [
 
   {
     path: '/news/:newsID',
-    component: () => import('@/views/MainContent/components/NewsPage.vue'),
+    component: () => import('@/views/Homepage/components/NewsPage.vue'),
     props: true
   }
 ];

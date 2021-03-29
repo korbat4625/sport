@@ -44,7 +44,6 @@
 
 <script>
 export default {
-  components: {},
   data() {
     return {
       reports: [
@@ -73,69 +72,21 @@ export default {
           ]
         }, // 時間區塊結束
         {
-          timeTitle: this.timeSetting(2020, 3, 12),
+          timeTitle: this.timeSetting(2019, 12, 30),
           contents: [
             {
-              title: '標421題一',
-              imgSrc: 'https://picsum.photos/1024/480/?image=799',
-              footerText: '底部文字底部文字',
-              time: '2020/02/02'
-            },
-            {
-              title: '標題4251325424標題一',
-              imgSrc: 'https://picsum.photos/1024/480/?image=55',
-              footerText: '底部文字底部文字',
-              time: '2020/02/02'
-            },
-            {
-              title: '66512666526',
-              imgSrc: 'https://picsum.photos/1024/480/?image=664',
-              footerText: '底部文字底部文字',
-              time: '2020/02/02'
-            },
-            {
-              title: '66gsfdgs6526',
-              imgSrc: 'https://picsum.photos/1024/480/?image=343',
-              footerText: '底部文字底部文字',
-              time: '2020/02/02'
-            }
-          ]
-        },
-        {
-          timeTitle: this.timeSetting(2020, 3, 10),
-          contents: [
-            {
-              title: '飛飛飛飛飛高高',
-              imgSrc: 'https://picsum.photos/1024/480/?image=144',
-              footerText: '飛飛飛飛飛高高',
-              time: '2020/02/02'
-            }
-          ]
-        },
-        {
-          timeTitle: this.timeSetting(2020, 3, 9),
-          contents: [
-            {
-              title: '新聞足球新聞足球',
-              imgSrc: 'https://picsum.photos/1024/480/?image=1024',
-              footerText: '新聞足球新聞足球',
-              time: '2020/02/02'
-            },
-            {
-              title: 'sss',
-              imgSrc: 'https://picsum.photos/1024/480/?image=1025',
-              footerText: 'sss',
-              time: '2020/02/02'
+              title: '201912302019123020191230',
+              imgSrc: 'https://picsum.photos/1024/480/?image=56',
+              footerText: '底部文字底部文字2019123020191230',
+              time: '2019123020191230'
             }
           ]
         }
       ]
     };
   },
-  created() {},
   methods: {
     timeSetting(year, month, date) {
-      console.log(arguments);
       return year + ' 年 ' + month + ' 月 ' + date + ' 日 ';
     }
   }

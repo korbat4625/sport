@@ -85,6 +85,11 @@ export default {
       ]
     };
   },
+  mounted() {
+    window.scroll({
+      top: 0
+    });
+  },
   methods: {
     timeSetting(year, month, date) {
       return year + ' 年 ' + month + ' 月 ' + date + ' 日 ';

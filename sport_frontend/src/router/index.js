@@ -24,7 +24,7 @@ const routes = [
 
   {
     path: '/news/:newsID',
-    component: () => import('@/views/Homepage/components/NewsPage.vue'),
+    component: () => import('@/views/NewsPage/NewsPage.vue'),
     props: true
   }
 ];

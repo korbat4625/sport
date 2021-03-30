@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="p-0 footer__container">
+  <b-container fluid class="footer__container">
     <b-row>
       <b-col cols="12">
         <footer class="footer-nav">

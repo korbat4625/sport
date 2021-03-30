@@ -1,5 +1,5 @@
 <template>
-  <div class="bdy">
+  <div id="app">
     <Header></Header>
     <router-view />
     <Footer></Footer>
@@ -10,6 +10,7 @@
 import Header from './Header';
 import Footer from './Footer';
 export default {
+  name: 'App',
   components: {
     Header,
     Footer
@@ -24,7 +25,7 @@ export default {
 html,
 body {
   background-color: #e3e5e6 !important;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
 #app {
@@ -33,12 +34,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-.bdy {
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 #nav {
@@ -56,5 +51,10 @@ body {
 
 * {
   font-family: 微軟正黑體;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
 }
 </style>

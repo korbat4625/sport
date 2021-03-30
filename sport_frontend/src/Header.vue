@@ -1,17 +1,30 @@
 <template>
-  <b-container fluid class="p-0">
+  <b-container
+    fluid
+    id="HeroPaper"
+    class="mx-auto"
+  >
     <b-row>
       <b-col cols="12">
         <header class="header-nav">
           <div class="logo__container">
-            <img :src="logo" alt="" />
+            <img
+              :src="logo"
+              alt=""
+            />
           </div>
           <b-row>
-            <b-col cols="10" offset="1">
+            <b-col
+              cols="10"
+              offset="1"
+            >
               <b-nav>
                 <b-nav-item to="/">首頁新聞</b-nav-item>
                 <b-nav-item to="/game">測試</b-nav-item>
-                <b-nav-item-dropdown text="賽事/盃賽" center>
+                <b-nav-item-dropdown
+                  text="賽事/盃賽"
+                  center
+                >
                   <b-dropdown-item to="#">台灣聯賽</b-dropdown-item>
                   <b-dropdown-item to="#">歐洲杯</b-dropdown-item>
                   <b-dropdown-item to="#">RU</b-dropdown-item>
@@ -29,7 +42,7 @@
 <script>
 import logo from './assets/logo.png';
 export default {
-  data() {
+  data () {
     return {
       logo: logo
     };
@@ -38,6 +51,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#HeroPaper {
+  position: relative;
+  width: 100%;
+  padding: 1.5rem;
+  opacity: 0.8;
+}
 .header-nav {
   @extend %header_footer;
   background-image: url('~@/assets/soccer-field.jpg');

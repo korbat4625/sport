@@ -15,7 +15,7 @@ export default {
     Header,
     Footer
   },
-  data() {
+  data () {
     return {};
   }
 };
@@ -56,5 +56,9 @@ body {
 
 img {
   max-width: 100%;
+}
+
+.hovered:hover {
+  cursor: pointer;
 }
 </style>

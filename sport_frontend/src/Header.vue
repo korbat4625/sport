@@ -2,9 +2,9 @@
   <b-container
     fluid
     id="HeroPaper"
-    class="mx-auto"
+    class="px-0"
   >
-    <b-row>
+    <b-row no-gutters>
       <b-col cols="12">
         <header class="header-nav">
           <div class="logo__container">
@@ -13,7 +13,7 @@
               alt=""
             />
           </div>
-          <b-row>
+          <b-row no-gutters>
             <b-col
               cols="10"
               offset="1"
@@ -54,7 +54,6 @@ export default {
 #HeroPaper {
   position: relative;
   width: 100%;
-  padding: 1.5rem;
   opacity: 0.8;
 }
 .header-nav {

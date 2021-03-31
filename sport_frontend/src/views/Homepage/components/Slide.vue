@@ -1,6 +1,10 @@
 <template>
   <b-row>
-    <b-col cols="10 mb-3" offset="1" class="slide-head">
+    <b-col
+      cols="10 mb-3"
+      offset="1"
+      class="slide-head"
+    >
       <b-row class="no-gutters">
         <b-col cols="12 mb-3 soccer-title">
           <h2>足球新聞</h2>
@@ -18,13 +22,17 @@
       >
         <b-carousel-slide>
           <template #img>
-            <div class="d-flex h-100">
+            <div
+              class="d-flex h-100 hovered"
+              @click="gotoNews(100)"
+            >
               <div class="img-container">
-                <img :src="slide1.imgSrc" alt="image slot" />
+                <img
+                  :src="slide1.imgSrc"
+                  alt="image slot"
+                />
               </div>
-              <div
-                class="big-title d-flex justify-content-center align-items-center"
-              >
+              <div class="big-title d-flex justify-content-center align-items-center">
                 <h2>{{ slide1.title }}</h2>
               </div>
             </div>
@@ -34,13 +42,17 @@
         <!-- Slides with custom text -->
         <b-carousel-slide>
           <template #img>
-            <div class="d-flex h-100">
+            <div
+              class="d-flex h-100 hovered"
+              @click="gotoNews(101)"
+            >
               <div class="img-container">
-                <img :src="slide2.imgSrc" alt="image slot" />
+                <img
+                  :src="slide2.imgSrc"
+                  alt="image slot"
+                />
               </div>
-              <div
-                class="big-title d-flex justify-content-center align-items-center"
-              >
+              <div class="big-title d-flex justify-content-center align-items-center">
                 <h2>{{ slide2.title }}</h2>
               </div>
             </div>
@@ -50,13 +62,17 @@
         <!-- Slides with image only -->
         <b-carousel-slide>
           <template #img>
-            <div class="d-flex h-100">
+            <div
+              class="d-flex h-100 hovered"
+              @click="gotoNews(102)"
+            >
               <div class="img-container">
-                <img :src="slide3.imgSrc" alt="image slot" />
+                <img
+                  :src="slide3.imgSrc"
+                  alt="image slot"
+                />
               </div>
-              <div
-                class="big-title d-flex justify-content-center align-items-center"
-              >
+              <div class="big-title d-flex justify-content-center align-items-center">
                 <h2>{{ slide3.title }}</h2>
               </div>
             </div>
@@ -67,13 +83,17 @@
         <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
         <b-carousel-slide>
           <template #img>
-            <div class="d-flex h-100">
+            <div
+              class="d-flex h-100 hovered"
+              @click="gotoNews(103)"
+            >
               <div class="img-container">
-                <img :src="slide4.imgSrc" alt="image slot" />
+                <img
+                  :src="slide4.imgSrc"
+                  alt="image slot"
+                />
               </div>
-              <div
-                class="big-title d-flex justify-content-center align-items-center"
-              >
+              <div class="big-title d-flex justify-content-center align-items-center">
                 <h2>{{ slide4.title }}</h2>
               </div>
             </div>
@@ -83,13 +103,17 @@
         <!-- Slide with blank fluid image to maintain slide aspect ratio -->
         <b-carousel-slide>
           <template #img>
-            <div class="d-flex h-100">
+            <div
+              class="d-flex h-100 hovered"
+              @click="gotoNews(104)"
+            >
               <div class="img-container">
-                <img :src="slide5.imgSrc" alt="image slot" />
+                <img
+                  :src="slide5.imgSrc"
+                  alt="image slot"
+                />
               </div>
-              <div
-                class="big-title d-flex justify-content-center align-items-center"
-              >
+              <div class="big-title d-flex justify-content-center align-items-center">
                 <h2>{{ slide5.title }}</h2>
               </div>
             </div>
@@ -101,8 +125,9 @@
 </template>
 
 <script>
+import router from '../../../router';
 export default {
-  data() {
+  data () {
     return {
       slide1: {
         imgSrc: 'https://picsum.photos/1024/480/?image=9',
@@ -130,14 +155,17 @@ export default {
     };
   },
   methods: {
-    onSlideStart(slide) {
+    onSlideStart (slide) {
       this.sliding = true;
       console.log(slide);
     },
-    onSlideEnd(slide) {
+    onSlideEnd (slide) {
       this.sliding = false;
       console.log(slide);
-    }
+    },
+    gotoNews (news) {
+      router.push('/news/' + news);
+    },
   }
 };
 </script>

@@ -1,18 +1,36 @@
 <template>
-  <b-container fluid class="footer__container">
-    <b-row>
+  <b-container
+    fluid
+    class="footer__container px-0"
+  >
+    <b-row no-gutters>
       <b-col cols="12">
         <footer class="footer-nav">
           <div class="footer-logo__container">
-            <img :src="footerLogo" alt="" />
+            <img
+              :src="footerLogo"
+              alt=""
+            />
           </div>
           <div class="footer-info text-center">
             <div>
               <a href="">聯絡我們</a> <span class="ml-3">|</span>
-              <a href="" class="ml-3">服務條款</a> <span class="ml-3">|</span>
-              <a href="" class="ml-3">私隱政策</a> <span class="ml-3">|</span>
-              <a href="" class="ml-3">私隱設定</a> <span class="ml-3">|</span>
-              <a href="" class="ml-3">職業生涯</a>
+              <a
+                href=""
+                class="ml-3"
+              >服務條款</a> <span class="ml-3">|</span>
+              <a
+                href=""
+                class="ml-3"
+              >私隱政策</a> <span class="ml-3">|</span>
+              <a
+                href=""
+                class="ml-3"
+              >私隱設定</a> <span class="ml-3">|</span>
+              <a
+                href=""
+                class="ml-3"
+              >職業生涯</a>
             </div>
             <div class="mx-auto mt-3">
               <p>
@@ -29,7 +47,7 @@
 <script>
 import footerLogo from './assets/logo.png';
 export default {
-  data() {
+  data () {
     return {
       footerLogo: footerLogo
     };

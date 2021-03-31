@@ -1,10 +1,16 @@
 <template>
   <b-row>
-    <b-col cols="10" offset="1">
+    <b-col
+      cols="10"
+      offset="1"
+    >
       <b-row>
-        <b-col lg="4 mt-3" class="sub-new">
+        <b-col
+          lg="4 mt-3"
+          class="sub-new"
+        >
           <div
-            class="news news__second"
+            class="news news__second hovered"
             v-html="news1"
             @click="gotoNews(1)"
           ></div>
@@ -13,17 +19,17 @@
           <b-row class="h-100">
             <b-col cols="12 d-flex justify-content-between flex-column">
               <div
-                class="news news__third mt-lg-0 mt-3"
+                class="news news__third mt-lg-0 mt-3 hovered"
                 v-html="news2"
                 @click="gotoNews(2)"
               ></div>
               <div
-                class="news news__third mt-lg-0 mt-3"
+                class="news news__third mt-lg-0 mt-3 hovered"
                 v-html="news3"
                 @click="gotoNews(3)"
               ></div>
               <div
-                class="news news__third mt-lg-0 mt-3"
+                class="news news__third mt-lg-0 mt-3 hovered"
                 v-html="news4"
                 @click="gotoNews(4)"
               ></div>
@@ -31,60 +37,69 @@
           </b-row>
         </b-col>
         <b-col lg="4 mt-3">
-          <div
-            class="news news__second d-flex justify-content-center align-items-center"
-          >
+          <div class="news news__second d-flex justify-content-center align-items-center">
             廣告
           </div>
         </b-col>
         <b-col lg="4 mt-3">
           <div
-            class="news news__third"
+            class="news news__third hovered"
             v-html="news5"
             @click="gotoNews(5)"
           ></div>
         </b-col>
         <b-col lg="4 mt-3">
           <div
-            class="news news__third"
+            class="news news__third hovered"
             v-html="news6"
             @click="gotoNews(6)"
           ></div>
         </b-col>
         <b-col lg="4 mt-3">
           <div
-            class="news news__third"
+            class="news news__third hovered"
             v-html="news7"
             @click="gotoNews(7)"
           ></div>
         </b-col>
         <b-col lg="4 mt-3">
           <div
-            class="news news__third"
+            class="news news__third hovered"
             v-html="news8"
             @click="gotoNews(8)"
           ></div>
         </b-col>
         <b-col lg="4 mt-3">
           <div
-            class="news news__third"
+            class="news news__third hovered"
             v-html="news9"
             @click="gotoNews(9)"
           ></div>
         </b-col>
         <b-col lg="4 mt-3">
           <div
-            class="news news__third"
+            class="news news__third hovered"
             v-html="news10"
             @click="gotoNews(10)"
           ></div>
         </b-col>
       </b-row>
     </b-col>
-    <b-col cols="10" offset="1">
+    <b-col
+      cols="10"
+      offset="1"
+    >
       <b-row>
-        <b-col cols="12" md="4 text-center my-5" offset-md="4">
-          <b-button class="more" :to="{ name: 'MoreNews' }" variant="info">
+        <b-col
+          cols="12"
+          md="4 text-center my-5"
+          offset-md="4"
+        >
+          <b-button
+            class="more"
+            :to="{ name: 'MoreNews' }"
+            variant="info"
+          >
             更多
           </b-button>
         </b-col>
@@ -96,7 +111,7 @@
 <script>
 import router from '../../../router';
 export default {
-  data() {
+  data () {
     return {
       news1: '',
       news2: '',
@@ -110,7 +125,7 @@ export default {
       news10: ''
     };
   },
-  created() {
+  created () {
     this.news1 = this.setFirstNews({
       imgSrc: 'https://picsum.photos/1024/480/?image=943',
       title: '新聞標題1新聞標題1新聞標題1',
@@ -173,10 +188,10 @@ export default {
     });
   },
   methods: {
-    gotoNews(news) {
+    gotoNews (news) {
       router.push('/news/' + news);
     },
-    setFirstNews({ imgSrc, title, footText, time }) {
+    setFirstNews ({ imgSrc, title, footText, time }) {
       const html = `
         <div class="news__head d-inline-block"><img
             src="${imgSrc}"
@@ -190,7 +205,7 @@ export default {
       `;
       return html;
     },
-    setNews({ imgSrc, title, footText, time }) {
+    setNews ({ imgSrc, title, footText, time }) {
       const html = `
         <div class="news__head--third d-inline-block"><img
             src="${imgSrc}"

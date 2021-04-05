@@ -61,4 +61,11 @@ img {
 .hovered:hover {
   cursor: pointer;
 }
+.flex-grow {
+  display: flex;
+}
+
+.flex-container__message {
+  flex-grow: 1;
+}
 </style>

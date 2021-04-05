@@ -7,17 +7,17 @@
       >
         <section class="single_news d-inline-block">
           <section class="single_news__sub-header">
-            <a href="javascript:;">{{ setNewsContent(newsID).topLink }}</a>
+            <a href="javascript:;">{{ getNewsContent(newsOrder).topLink }}</a>
             <hr />
           </section>
           <section class="single_news__header">
-            <h1>{{ setNewsContent(newsID).title }}</h1>
+            <h1>{{ getNewsContent(newsOrder).title }}</h1>
             <br />
-            <p class="text-left">{{ setNewsContent(newsID).text }}</p>
-            <p class="text-left">上次更新於 {{ setNewsContent(newsID).lastUpdate }}</p>
+            <p class="text-left">{{ getNewsContent(newsOrder).text }}</p>
+            <p class="text-left">上次更新於 {{ getNewsContent(newsOrder).lastUpdate }}</p>
             <hr />
             <section class="text-left my-2 d-flex align-items-center">
-              <span>{{ setNewsContent(newsID).firstCreate }}</span>
+              <span>{{ getNewsContent(newsOrder).firstCreate }}</span>
               <span class="ml-3">|</span>
               <b-icon-facebook class="ml-3"></b-icon-facebook>
               <b-icon-twitter class="ml-3"></b-icon-twitter>
@@ -33,14 +33,14 @@
             </section>
             <section>
               <img
-                :src="'https://picsum.photos/1024/480/?image=' + (Number(newsID) + 165)"
+                :src="'https://picsum.photos/1024/480/?image=' + (Number(newsOrder) + 165)"
                 alt=""
               />
             </section>
           </section>
           <section class="single_news__tags d-flex">
             <div
-              v-for="(tag, index) in setNewsContent(newsID).tags"
+              v-for="(tag, index) in getNewsContent(newsOrder).tags"
               class="tag"
               :key="'tag' + index"
             >
@@ -51,7 +51,7 @@
           </section>
           <section class="single_news__article">
             <article>
-              <p class="text-left">{{ setNewsContent(newsID).content }}</p>
+              <p class="text-left">{{ getNewsContent(newsOrder).content }}</p>
             </article>
           </section>
         </section>
@@ -65,7 +65,7 @@
             <span>相關</span>
           </h2>
           <a
-            v-for="(link, index) in setNewsContent(newsID).sideLinks"
+            v-for="(link, index) in getNewsContent(newsOrder).sideLinks"
             href="javascript:;"
             :key="'link' + index"
           >
@@ -82,20 +82,34 @@
     </b-row>
     <b-sidebar
       id="sidebar-right"
-      title="Sidebar"
+      :title="sidebarTitle"
       right
       shadow
     >
-      <div class="px-3 py-2">
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-        </p>
-        <b-img
-          src="https://picsum.photos/500/500/?image=54"
-          fluid
-          thumbnail
-        ></b-img>
+      <div class="px-3 py-2 h-100">
+        <div class="h-100 d-flex flex-column justify-content-end">
+          <b-form-textarea
+            id="textarea"
+            v-model="postMessage"
+            placeholder="寫些啥吧..."
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+          <b-row class="mt-3">
+            <b-col cols="3 d-flex align-items-center">暱稱:</b-col>
+            <b-col cols="9">
+              <b-form-input
+                v-model="nickName"
+                placeholder="Enter your name"
+              ></b-form-input>
+            </b-col>
+          </b-row>
+          <b-button
+            class="mt-3"
+            variant="info"
+            @click="sendMessage"
+          >留下評論</b-button>
+        </div>
       </div>
     </b-sidebar>
   </b-container>
@@ -103,19 +117,41 @@
 
 <script>
 import newsData from './components/newsData.json'
+import axios from 'axios'
 export default {
-  props: ['newsID'],
+  props: ['newsOrder'],
   data () {
     return {
-      newsData: newsData
+      newsData: newsData,
+      sidebarTitle: '',
+      postMessage: '',
+      nickName: ''
     }
   },
   created () {
-    console.log(this.newsData)
+    // console.log(this.newsData)
   },
   methods: {
-    setNewsContent (newsID) {
-      switch (Number(newsID)) {
+    getMessageLength () {
+      return 0;
+    },
+    sendMessage () {
+      const form = {
+        articleId: this.getNewsContent(this.newsOrder).id,
+        postUser: this.nickName,
+        message: this.postMessage
+      }
+      axios.post('/postMessage', form)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    getNewsContent (newsOrder) {
+      // console.log(newsOrder)
+      switch (Number(newsOrder)) {
         case 1: return this.newsData.news1
         case 2: return this.newsData.news2
         case 3: return this.newsData.news3

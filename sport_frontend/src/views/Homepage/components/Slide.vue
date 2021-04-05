@@ -155,13 +155,13 @@ export default {
     };
   },
   methods: {
-    onSlideStart (slide) {
+    onSlideStart () {
       this.sliding = true;
-      console.log(slide);
+      // console.log(slide);
     },
-    onSlideEnd (slide) {
+    onSlideEnd () {
       this.sliding = false;
-      console.log(slide);
+      // console.log(slide);
     },
     gotoNews (news) {
       router.push('/news/' + news);

@@ -23,7 +23,10 @@
           >
             <div class="news news__third">
               <div class="news__head--third d-inline-block">
-                <img :src="content.imgSrc" alt="image slot" />
+                <img
+                  :src="content.imgSrc"
+                  alt="image slot"
+                />
               </div>
               <div class="news__body--third d-inline-block">
                 <h6>{{ content.title }}</h6>
@@ -44,7 +47,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       reports: [
         {
@@ -85,13 +88,13 @@ export default {
       ]
     };
   },
-  mounted() {
+  mounted () {
     window.scroll({
       top: 0
     });
   },
   methods: {
-    timeSetting(year, month, date) {
+    timeSetting (year, month, date) {
       return year + ' 年 ' + month + ' 月 ' + date + ' 日 ';
     }
   }

@@ -205,19 +205,19 @@
     },
     "news2": {
         "id": 2,
-        "topLink": "台灣",
-        "title": "東方3：1挫流浪 聯賽榜追近傑志",
-        "text": "Goal",
-        "lastUpdate": "14:45 2021/03/27",
-        "firstCreate": "20:31 2021年3月27日",
-        "imgSrc": "https://picsum.photos/1024/480/?image=160",
+        "topLink": "中國11",
+        "title": "中國11中國11中國11中國11",
+        "text": "中國11",
+        "lastUpdate": "14:45 2021/03/29",
+        "firstCreate": "20:31 2021年3月29日",
+        "imgSrc": "https://picsum.photos/1024/480/?image=269",
         "tags":[
             {
-                "text": "英格蘭",
+                "text": "台灣11",
                 "to": "https://www.yahoo.com.tw"
             },
             {
-                "text": "LIVERPOOL",
+                "text": "台灣11",
                 "to": "https://www.yahoo.com.tw"
             },
             {

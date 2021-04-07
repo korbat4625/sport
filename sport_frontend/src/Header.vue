@@ -76,4 +76,8 @@ export default {
     max-width: 100%;
   }
 }
+
+header {
+  z-index: 500;
+}
 </style>

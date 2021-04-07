@@ -44,7 +44,7 @@
               class="tag"
               :key="'tag' + index"
             >
-              <a :href="tag">
+              <a :href="tag.to">
                 <span style="color: white;">{{ tag.text }}</span>
               </a>
             </div>
@@ -118,6 +118,8 @@
 <script>
 import newsData from './components/newsData.json'
 import axios from 'axios'
+
+axios.defaults.baseURL = 'http://localhost:3000'
 export default {
   props: ['newsOrder'],
   data () {

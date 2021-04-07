@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 // const ejs = require('ejs');
 // const fs = require('fs')
-const postMsgModel = require('./model/postModel');
-const listenPort = 8080;
+const listenPort = 3222;
+const cors = require('cors')
 
 // const schemas = require('./schemas/postModel');
 
@@ -26,7 +26,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public', 'dist')));
-
+app.use(cors({
+  origin: ['http://localhost:8080'],
+}))
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
@@ -68,22 +70,26 @@ mongoose
     console.log('db connected fail.');
   });
 
-// CORS config here
-app.all('/*', function (req, res, next) {
-  // CORS headers
-  res.header('Access-Control-Allow-Origin', '*'); // restrict it to the required domain
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  // Set custom headers for CORS
-  res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
-  if (req.method == 'OPTIONS') {
-    res.status(200).end();
-  } else {
-    next();
-  }
-});
+// app.get('/', (req, res) => {
+//   res.send('apple')
+// })
 
-app.listen(listenPort, () => {
-  console.log('listen at ' + listenPort);
-});
+// CORS config here
+// app.all('/*', function (req, res, next) {
+//   // CORS headers
+//   res.header('Access-Control-Allow-Origin', '*'); // restrict it to the required domain
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   // Set custom headers for CORS
+//   res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+//   if (req.method == 'OPTIONS') {
+//     res.status(200).end();
+//   } else {
+//     next();
+//   }
+// });
+
+// app.listen(listenPort, () => {
+//   console.log('listen at ' + listenPort);
+// });
 
 module.exports = app;

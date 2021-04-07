@@ -44,9 +44,7 @@ const PostMsgSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  messageIdChain: {
-    // must be '${articleId}-messageId' or
-    // '${articleId}-messageId1-messageId2'
+  postId: {
     type: String,
     required: true
   },

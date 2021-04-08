@@ -80,7 +80,11 @@
         </section>
       </b-col>
     </b-row>
-    <b-sidebar
+    <Messages
+      :newsOrder="newsOrder"
+      :newsId="getNewsContent(newsOrder).id"
+    />
+    <!-- <b-sidebar
       id="sidebar-right"
       :title="sidebarTitle"
       right
@@ -111,17 +115,18 @@
           >留下評論</b-button>
         </div>
       </div>
-    </b-sidebar>
+    </b-sidebar> -->
   </b-container>
 </template>
 
 <script>
 import newsData from './components/newsData.json'
-import axios from 'axios'
-
-axios.defaults.baseURL = 'http://localhost:3000'
+import Messages from './components/messages.vue'
 export default {
   props: ['newsOrder'],
+  components: {
+    Messages
+  },
   data () {
     return {
       newsData: newsData,
@@ -134,23 +139,6 @@ export default {
     // console.log(this.newsData)
   },
   methods: {
-    getMessageLength () {
-      return 0;
-    },
-    sendMessage () {
-      const form = {
-        articleId: this.getNewsContent(this.newsOrder).id,
-        postUser: this.nickName,
-        message: this.postMessage
-      }
-      axios.post('/postMessage', form)
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
     getNewsContent (newsOrder) {
       // console.log(newsOrder)
       switch (Number(newsOrder)) {

@@ -37,7 +37,7 @@ const studentSchema = new mongoose.Schema({
 
 const PostMsgSchema = new mongoose.Schema({
   articleId: {
-    type: Number,
+    type: String,
     required: true
   },
   postUser: {

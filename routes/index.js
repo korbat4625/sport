@@ -18,10 +18,6 @@ function _uuid () {
 router.post('/postMessage', (req, res) => {
   console.log('request::', req.body)
   const { articleId, postUser, message } = req.body
-  // try {
-  // } catch (e) {
-  //   console.log(e)
-  // }
   const MessageModel = mongoose.model('articleMessage', PostMsgSchema)
   const newPostMessage = new MessageModel({
     articleId: articleId,
@@ -35,14 +31,19 @@ router.post('/postMessage', (req, res) => {
       console.log('err:::', err);
       throw err
     }
-    console.log('message saved')
-    // res.status(200)
+    res.status(200)
     res.send({ message: '成功' })
   })
 })
 
-router.get('/getArticleMessage/:aiticleId', (req, res) => {
-  console.log(req.body)
+router.get('/getArticleMessage/:articleId', async (req, res) => {
+  const MessageModel = mongoose.model('articleMessage', PostMsgSchema)
+  const { articleId } = req.params
+  console.log(articleId, typeof articleId, req.params)
+  const data = await MessageModel.find({ articleId })
+
+  console.log('data::', data)
+  res.send(data)
 })
 
 module.exports = router;

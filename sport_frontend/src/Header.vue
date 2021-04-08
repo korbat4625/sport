@@ -1,7 +1,6 @@
 <template>
   <b-container
     fluid
-    id="HeroPaper"
     class="px-0"
   >
     <b-row no-gutters>
@@ -51,11 +50,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#HeroPaper {
-  position: relative;
-  width: 100%;
-  opacity: 0.8;
-}
 .header-nav {
   @extend %header_footer;
   background-image: url('~@/assets/soccer-field.jpg');

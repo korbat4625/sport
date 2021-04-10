@@ -12,10 +12,18 @@ const cors = require('cors')
 
 // const schemas = require('./schemas/postModel');
 
-var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
+const messageRouter = require('./routes/message');
 // var usersRouter = require('./routes/users');
 
-var app = express();
+const app = express();
+const corsConfig = {
+  origin: [
+    'http://localhost:8080'
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  credentials: true
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,10 +34,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public', 'dist')));
-app.use(cors({
-  origin: ['http://localhost:8080'],
-}))
-app.use('/', indexRouter);
+app.use(cors(corsConfig))
+app.use('/', indexRouter, function (err, req, res, next) {
+  console.log('indexRouter error...', err)
+  next()
+});
+app.use('/', messageRouter)
 // app.use('/users', usersRouter);
 
 // app.use(function (req, res, next) {

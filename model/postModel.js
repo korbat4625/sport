@@ -38,23 +38,58 @@ const studentSchema = new mongoose.Schema({
 const PostMsgSchema = new mongoose.Schema({
   articleId: {
     type: String,
-    required: true
+    required: [true, 'please input articleId']
   },
   postUser: {
     type: String,
-    required: true
+    required: [true, 'please input postUser']
   },
   postId: {
     type: String,
-    required: true
+    required: [true, 'please input postId']
   },
   message: {
     type: String,
-    required: true
+    required: [true, 'please input message']
   },
   postTime: {
     type: String,
-    required: true
+    required: [true, 'please input postTime']
+  },
+  lightUp: {
+    quantity: {
+      type: Number,
+      default: 0
+    },
+    whoPositive: {
+      type: Array
+    },
+    whoNegative: {
+      type: Array
+    },
+    cookieUserLight: {
+      type: String,
+      default: '',
+      enum: ['ceasefire', 'fire', '']
+    }
+  },
+  messageUnderMessage: {
+    postUser: {
+      type: String
+    },
+    postId: {
+      type: String,
+    },
+    message: {
+      type: String
+    },
+    postTime: {
+      type: String
+    },
+    lightUp: {
+      type: Number,
+      default: 0
+    }
   }
 })
 
@@ -82,7 +117,7 @@ const PostMsgSchema = new mongoose.Schema({
 //     });
 // });
 
-// create a Model ， or called collention
+// create a Model ， or called collention (table)
 
 // const Student = mongoose.model('Student', studentSchema)
 

@@ -84,38 +84,6 @@
       :newsOrder="newsOrder"
       :newsId="getNewsContent(newsOrder).id"
     />
-    <!-- <b-sidebar
-      id="sidebar-right"
-      :title="sidebarTitle"
-      right
-      shadow
-    >
-      <div class="px-3 py-2 h-100">
-        <div class="h-100 d-flex flex-column justify-content-end">
-          <b-form-textarea
-            id="textarea"
-            v-model="postMessage"
-            placeholder="寫些啥吧..."
-            rows="3"
-            max-rows="6"
-          ></b-form-textarea>
-          <b-row class="mt-3">
-            <b-col cols="3 d-flex align-items-center">暱稱:</b-col>
-            <b-col cols="9">
-              <b-form-input
-                v-model="nickName"
-                placeholder="Enter your name"
-              ></b-form-input>
-            </b-col>
-          </b-row>
-          <b-button
-            class="mt-3"
-            variant="info"
-            @click="sendMessage"
-          >留下評論</b-button>
-        </div>
-      </div>
-    </b-sidebar> -->
   </b-container>
 </template>
 
@@ -140,7 +108,6 @@ export default {
   },
   methods: {
     getNewsContent (newsOrder) {
-      // console.log(newsOrder)
       switch (Number(newsOrder)) {
         case 1: return this.newsData.news1
         case 2: return this.newsData.news2

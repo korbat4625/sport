@@ -1,0 +1,122 @@
+const _uuid = require('custom-uuid');
+const mongoose = require('mongoose');
+const PostMsgSchema = require('../model/postModel');
+const express = require('express');
+const router = express.Router();
+
+const messageUnderArticleModel = 'articleMessage'
+const opt = {
+  runValidators: true
+}
+
+// 文章下留言，點亮點滅
+router.patch('/lightUp', async (req, res) => {
+  const MessageModel = mongoose.model(messageUnderArticleModel, PostMsgSchema);
+  const { articleId, lightUp } = req.body;
+  let updateData = {};
+  let findTheLightPersonAtPositive = -1;
+  let findTheLightPersonAtNegative = -1;
+  try {
+    const foundPost = await MessageModel.findOne({ postId: articleId });
+    if (foundPost.lightUp === undefined) {
+      foundPost.lightUp.quantity = 0;
+      foundPost.lightUp.quantity += lightUp;
+      foundPost.lightUp.whoPositive = [];
+      foundPost.lightUp.whoNegative = [];
+    } else {
+      // 找此人之前點過亮或滅
+      findTheLightPersonAtPositive = foundPost.lightUp.whoPositive.findIndex(
+        persons => persons === req.cookies.name
+      );
+
+      findTheLightPersonAtNegative = foundPost.lightUp.whoNegative.findIndex(
+        persons => persons === req.cookies.name
+      );
+
+      // 點亮點滅邏輯
+      if (findTheLightPersonAtPositive >= 0 && lightUp === 1) {
+        res.status = 200;
+        res.end()
+      } else if (findTheLightPersonAtPositive >= 0 && lightUp === -1) {
+        foundPost.lightUp.whoPositive.splice(findTheLightPersonAtPositive, 1);
+        foundPost.lightUp.whoNegative.push(req.cookies.name);
+        foundPost.lightUp.quantity += lightUp;
+        foundPost.lightUp.cookieUserLight = 'ceasefire'
+      } else if (findTheLightPersonAtNegative >= 0 && lightUp === -1) {
+        res.status = 200;
+        res.end()
+      } else if (findTheLightPersonAtNegative >= 0 && lightUp === 1) {
+        foundPost.lightUp.whoNegative.splice(findTheLightPersonAtNegative, 1);
+        foundPost.lightUp.whoPositive.push(req.cookies.name);
+        foundPost.lightUp.quantity += lightUp;
+        foundPost.lightUp.cookieUserLight = 'fire'
+      } else {
+        if (lightUp === 1) {
+          foundPost.lightUp.whoPositive.push(req.cookies.name);
+          foundPost.lightUp.cookieUserLight = 'fire'
+        }
+        if (lightUp === -1) {
+          foundPost.lightUp.whoNegative.push(req.cookies.name);
+          foundPost.lightUp.cookieUserLight = 'ceasefire'
+        }
+        foundPost.lightUp.quantity += lightUp;
+
+      }
+      updateData = foundPost.lightUp;
+    }
+    await MessageModel.updateOne({ postId: articleId }, { lightUp: updateData });
+    res.status = 200;
+    res.send({
+      message: '更新成功',
+      result: {}
+    });
+  } catch (err) {
+    res.status = 500;
+    res.send({
+      message: '錯誤, ' + err.name,
+      result: err
+    });
+  }
+  res.end();
+});
+
+// router.get('getMessageLightLength/:postId', async (req, res) => {
+//   const MessageModel = mongoose.model('articleMessage', PostMsgSchema);
+//   const { postId } = req.params;
+//   const foundData = MessageModel.findOne({ postId });
+//   console.log()
+// })
+
+// 新增文章下留言
+router.post('/postMessage', async (req, res) => {
+  const { articleId, postUser, message } = req.body
+  const MessageModel = mongoose.model(messageUnderArticleModel, PostMsgSchema)
+  const newPostMessage = new MessageModel({
+    articleId: articleId,
+    postId: _uuid(),
+    postUser: postUser,
+    message: message,
+    postTime: new Date().getTime()
+  })
+  try {
+    await newPostMessage.save(opt)
+    res.status(200)
+    res.send({ message: '成功' })
+  } catch (err) {
+    res.status(500)
+    res.send({
+      message: '失敗, ' + err.name,
+      result: err
+    })
+  }
+})
+
+// 取得文章下留言
+router.get('/getArticleMessage/:articleId', async (req, res) => {
+  const MessageModel = mongoose.model('articleMessage', PostMsgSchema)
+  const { articleId } = req.params
+  const foundPost = await MessageModel.find({ articleId })
+  res.send(foundPost)
+})
+
+module.exports = router;

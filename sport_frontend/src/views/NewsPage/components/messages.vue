@@ -13,10 +13,40 @@
           :key="msgData._id"
         >
           <b-row>
-            <b-col cols="2">{{ msgData.__v }}</b-col>
-            <b-col cols="10">{{ msgData.postUser }} {{ convertDate(msgData.postTime) }} <span>點滅</span></b-col>
-            <b-col cols="12">{{ msgData.message }}</b-col>
-            <b-col cols="12">亮了(0)</b-col>
+            <b-col cols="12 d-flex p-2">
+              <section
+                class="mr-4"
+                style="width: 50px;"
+              >{{ msgData.__v }}</section>
+              <section style="width: 70%;">
+                <div class="d-flex m-2">
+                  <div>{{ msgData.postUser }}</div>
+                  <div class="ml-3">{{ convertDate(msgData.postTime) }}</div>
+                </div>
+                <div class="text-left m-2">{{ msgData.message }}</div>
+                <div class="text-left m-2">
+                  <a
+                    href="javascript:;"
+                    @click="light(msgData.postId, 1)"
+                  >亮了( {{ msgData.lightUp.quantity }} ) <span v-if="msgData.lightUp.cookieUserLight === 'fire'">(這篇點了亮)</span></a>
+
+                  <a
+                    href="javascript:;"
+                    class="ml-2"
+                    @click="reply(postId)"
+                  >回復</a>
+                </div>
+              </section>
+              <section
+                class="text-left"
+                style="flex-grow: 1;"
+              >
+                <a
+                  href="javascript:;"
+                  @click="light(msgData.postId, -1)"
+                >點滅<span v-if="msgData.lightUp.cookieUserLight === 'ceasefire'">(這篇點了滅)</span></a>
+              </section>
+            </b-col>
           </b-row>
         </div>
       </section>
@@ -51,8 +81,7 @@
 </template>
 
 <script>
-import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:3000'
+
 export default {
   props: ['newsOrder', 'newsId'],
   data () {
@@ -67,20 +96,50 @@ export default {
   },
   methods: {
     async getMessages () {
-      const result = await axios.get('/getArticleMessage/' + this.newsOrder);
-      this.msgBox = result.data
-    },
-    getMessageLength () {
-      return 0;
+      // const result = await axios.get('/getArticleMessage/' + this.newsOrder);
+      const result = await this.$http({
+        method: 'GET',
+        url: '/getArticleMessage/' + this.newsId
+      });
+      this.msgBox = result.data;
     },
     async sendMessage () {
       const form = {
         articleId: this.newsId,
         postUser: this.nickName,
         message: this.postMessage
-      }
-      await axios.post('/postMessage', form)
+      };
+      await this.$http({
+        method: 'POST',
+        url: '/postMessage',
+        data: form
+      });
       await this.getMessages()
+    },
+    async reply (postId, value) {
+      const patchData = {
+        articleId: postId,
+        lightUp: value
+      }
+      console.log(patchData)
+      // axios.patch('/lightUp', patchData)
+      await this.getMessages()
+    },
+    async light (postId, value) {
+      const patchData = {
+        articleId: postId,
+        lightUp: value
+      }
+      await this.$http({
+        method: 'PATCH',
+        url: '/lightUp',
+        data: patchData
+      });
+      await this.getMessages()
+    },
+    getMessageLength () {
+      // const result = await axios.get('/getMessageLightLength/' + this.newsOrder);
+      return 0;
     },
     convertDate (timeStamp) {
       return new Date(Number(timeStamp)).toLocaleString()

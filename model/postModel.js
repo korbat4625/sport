@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const messageUnderArticleModel = 'articleMessage'
 const studentSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -57,7 +58,11 @@ const PostMsgSchema = new mongoose.Schema({
     required: [true, 'please input postTime']
   },
   lightUp: {
-    quantity: {
+    quantityPositive: {
+      type: Number,
+      default: 0
+    },
+    quantityNegative: {
       type: Number,
       default: 0
     },
@@ -120,7 +125,7 @@ const PostMsgSchema = new mongoose.Schema({
 // create a Model ， or called collention (table)
 
 // const Student = mongoose.model('Student', studentSchema)
-
+const MessageModel = mongoose.model(messageUnderArticleModel, PostMsgSchema);
 
 // create a document called posts
 
@@ -184,4 +189,4 @@ const PostMsgSchema = new mongoose.Schema({
 //   console.log('catch:', e)
 // })
 
-module.exports = PostMsgSchema
+module.exports = MessageModel

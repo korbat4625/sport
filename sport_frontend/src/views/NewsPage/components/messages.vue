@@ -28,8 +28,10 @@
                   <a
                     href="javascript:;"
                     @click="light(msgData.postId, 1)"
-                  >亮了( {{ msgData.lightUp.quantity }} ) <span v-if="msgData.lightUp.cookieUserLight === 'fire'">(這篇點了亮)</span></a>
-
+                  >
+                    亮了( {{ msgData.lightUp.quantityPositive }} )
+                    <span v-if="msgData.lightUp.cookieUserLight === 'fire'">(這篇點了亮)</span>
+                  </a>
                   <a
                     href="javascript:;"
                     class="ml-2"
@@ -44,7 +46,10 @@
                 <a
                   href="javascript:;"
                   @click="light(msgData.postId, -1)"
-                >點滅<span v-if="msgData.lightUp.cookieUserLight === 'ceasefire'">(這篇點了滅)</span></a>
+                >
+                  點滅({{ msgData.lightUp.quantityNegative }})
+                  <span v-if="msgData.lightUp.cookieUserLight === 'ceasefire'">(這篇點了滅)</span>
+                </a>
               </section>
             </b-col>
           </b-row>
@@ -113,11 +118,6 @@ export default {
       }
     }
     this.iwords.SetKeywords(this.sensitiveWords.split('|'));
-    // var s = "中国|国人|zg人";
-    // var test = "我是中国人";
-    // var iwords = new StringSearch();
-    // iwords.SetKeywords(s.split('|'));
-    // var all = iwords.FindAll(test);
   },
   methods: {
     async getMessages () {
@@ -130,11 +130,11 @@ export default {
     },
     sendMessage () {
       if (!this.postMessage.length || !this.nickName.length) return ''
-      const sendMsg = async () => {
+      const sendMsg = async (postMessage) => {
         const form = {
           articleId: this.newsId,
           postUser: this.nickName,
-          message: this.postMessage
+          message: postMessage
         };
         await this.$http({
           method: 'POST',
@@ -143,31 +143,28 @@ export default {
         });
         await this.getMessages()
       }
-      const words_t = this.translate.ToTraditionalChinese(this.postMessage);
-      const words_s = this.translate.ToSimplifiedChinese(this.postMessage);
+      const postMessage = this.postMessage.replace(/\s/g, '');
+      const words_t = this.translate.ToTraditionalChinese(postMessage);
+      const words_s = this.translate.ToSimplifiedChinese(postMessage);
       const senWords_t = this.iwords.FindAll(words_t);
       const senWords_s = this.iwords.FindAll(words_s);
+      const replacedText = this.iwords.Replace(postMessage, '*');
       if (senWords_t.length > 0 || senWords_s.length > 0) {
         this.$bvModal.msgBoxConfirm('您輸入的留言含有敏感字詞 [' + senWords_t + ',' + senWords_s + ']，若要留言請點選確認。', {
           okTitle: '確認',
           cancelTitle: '取消',
         })
           .then(value => {
-            if (value) sendMsg()
+            if (value) sendMsg(replacedText)
             else return ''
           })
           .catch(err => {
             console.log(err)
             // An error occurred
           })
-      } else sendMsg()
+      } else sendMsg(replacedText)
     },
     async reply () {
-      // const patchData = {
-      //   articleId: postId,
-      //   lightUp: value
-      // }
-      // await this.getMessages()
     },
     async light (postId, value) {
       const patchData = {
@@ -180,10 +177,6 @@ export default {
         data: patchData
       });
       await this.getMessages()
-    },
-    getMessageLength () {
-      // const result = await axios.get('/getMessageLightLength/' + this.newsOrder);
-      return 0;
     },
     convertDate (timeStamp) {
       return new Date(Number(timeStamp)).toLocaleString()

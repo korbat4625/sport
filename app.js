@@ -66,7 +66,7 @@ app.use(function (err, req, res, next) {
 
 mongoose
   .connect(
-    'mongodb+srv://korbat4625:a1357900@cluster0.hxcmp.mongodb.net/sportDB?serverSelectionTryOnce=true&serverSelectionTimeoutMS=3000&',
+    'mongodb+srv://admin:sFxwOHpBFQVkTe90@cluster0.dfpa4.mongodb.net/sportDB?serverSelectionTryOnce=true&serverSelectionTimeoutMS=3000&',
     {
       useNewUrlParser: true,
       useUnifiedTopology: true

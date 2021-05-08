@@ -9,6 +9,10 @@ const opt = {
   runValidators: true
 }
 
+function checkSensitive (message) {
+
+}
+
 // 文章下留言，點亮點滅
 router.patch('/lightUp', async (req, res) => {
   const { articleId, lightUp } = req.body;

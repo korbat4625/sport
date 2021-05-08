@@ -130,39 +130,52 @@ export default {
     },
     sendMessage () {
       if (!this.postMessage.length || !this.nickName.length) return ''
-      const sendMsg = async (postMessage) => {
-        const form = {
-          articleId: this.newsId,
-          postUser: this.nickName,
-          message: postMessage
-        };
-        await this.$http({
-          method: 'POST',
-          url: '/postMessage',
-          data: form
-        });
-        await this.getMessages()
+      // const sendMsg = async (postMessage) => {
+      //   const form = {
+      //     articleId: this.newsId,
+      //     postUser: this.nickName,
+      //     message: postMessage
+      //   };
+      //   await this.$http({
+      //     method: 'POST',
+      //     url: '/postMessage',
+      //     data: form
+      //   });
+      //   await this.getMessages()
+      // }
+      // const postMessage = this.postMessage.replace(/\s/g, '');
+      const words_t = this.translate.ToTraditionalChinese(this.postMessage);
+      const words_s = this.translate.ToSimplifiedChinese(this.postMessage);
+
+      const checkSens = (words_t) => {
+        let words = words_t
+        let theReplaceSingle = this.iwords.FindFirst(words);
+        if (theReplaceSingle === null) {
+          return words;
+        } else {
+          words = words.split(theReplaceSingle);
+          theReplaceSingle = theReplaceSingle.substring(0, theReplaceSingle.length - 1) + '*';
+          words = words[0] + theReplaceSingle + words[1];
+          return checkSens(words)
+        }
       }
-      const postMessage = this.postMessage.replace(/\s/g, '');
-      const words_t = this.translate.ToTraditionalChinese(postMessage);
-      const words_s = this.translate.ToSimplifiedChinese(postMessage);
-      const senWords_t = this.iwords.FindAll(words_t);
-      const senWords_s = this.iwords.FindAll(words_s);
-      const replacedText = this.iwords.Replace(postMessage, '*');
-      if (senWords_t.length > 0 || senWords_s.length > 0) {
-        this.$bvModal.msgBoxConfirm('您輸入的留言含有敏感字詞 [' + senWords_t + ',' + senWords_s + ']，若要留言請點選確認。', {
-          okTitle: '確認',
-          cancelTitle: '取消',
-        })
-          .then(value => {
-            if (value) sendMsg(replacedText)
-            else return ''
-          })
-          .catch(err => {
-            console.log(err)
-            // An error occurred
-          })
-      } else sendMsg(replacedText)
+      console.log(checkSens(words_t))
+      console.log(checkSens(words_s))
+      // const replacedText = this.iwords.Replace(postMessage, '*');
+      // if (senWords_t.length > 0 || senWords_s.length > 0) {
+      //   this.$bvModal.msgBoxConfirm('您輸入的留言含有敏感字詞，若要留言請點選確認。', {
+      //     okTitle: '確認',
+      //     cancelTitle: '取消',
+      //   })
+      //     .then(value => {
+      //       if (value) sendMsg(replacedText)
+      //       else return ''
+      //     })
+      //     .catch(err => {
+      //       console.log(err)
+      //       // An error occurred
+      //     })
+      // } else sendMsg(replacedText)
     },
     async reply () {
     },

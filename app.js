@@ -19,7 +19,8 @@ const messageRouter = require('./routes/message');
 const app = express();
 const corsConfig = {
   origin: [
-    'http://localhost:8080'
+    'http://localhost:8080',
+    'http://localhost',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   credentials: true

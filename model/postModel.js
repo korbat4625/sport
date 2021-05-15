@@ -77,24 +77,6 @@ const PostMsgSchema = new mongoose.Schema({
       default: '',
       enum: ['ceasefire', 'fire', '']
     }
-  },
-  messageUnderMessage: {
-    postUser: {
-      type: String
-    },
-    postId: {
-      type: String,
-    },
-    message: {
-      type: String
-    },
-    postTime: {
-      type: String
-    },
-    lightUp: {
-      type: Number,
-      default: 0
-    }
   }
 })
 

@@ -1,6 +1,7 @@
 const _uuid = require('custom-uuid');
 const mongoose = require('mongoose');
 const MessageModel = require('../model/postModel');
+const articleModel = require('../model/articleModel')
 const express = require('express');
 const router = express.Router();
 
@@ -98,6 +99,35 @@ router.patch('/lightUp', async (req, res) => {
 //   const foundData = MessageModel.findOne({ postId });
 //   console.log()
 // })
+
+router.post('/postArticle', async (req, res) => {
+  const { outsideTitle, topLink, title, author, lastUpdate, firstCreate, imgSrc, outsideImgSrc, tags, content, sideLinks } = req.body
+  try {
+    await new articleModel({
+      articleId: _uuid(),
+      outsideTitle,
+      topLink,
+      title,
+      author,
+      lastUpdate,
+      firstCreate,
+      imgSrc,
+      outsideImgSrc,
+      tags,
+      content,
+      sideLinks
+    }).save(opt)
+    res.status(200)
+    res.send({ message: '成功' })
+  } catch (err) {
+    console.log(err)
+    res.status(500)
+    res.send({
+      message: '失敗, ' + err.name,
+      result: err
+    })
+  }
+})
 
 // 新增文章下留言
 router.post('/postMessage', async (req, res) => {

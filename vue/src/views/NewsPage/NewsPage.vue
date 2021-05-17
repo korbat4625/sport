@@ -33,7 +33,7 @@
             </section>
             <section>
               <img
-                :src="'https://picsum.photos/1024/480/?image=' + (Number() + 165)"
+                :src="theArticle.imgSrc"
                 alt=""
               />
             </section>

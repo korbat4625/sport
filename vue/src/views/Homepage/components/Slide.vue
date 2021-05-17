@@ -47,7 +47,6 @@
 </template>
 
 <script>
-import router from '../../../router';
 export default {
   props: {
     articles: {
@@ -69,7 +68,7 @@ export default {
       // console.log(slide);
     },
     gotoNews (id) {
-      router.push('/news/' + id);
+      this.$router.push('/news/' + id);
     },
   }
 };

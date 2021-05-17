@@ -7,17 +7,17 @@
       >
         <section class="single_news d-inline-block">
           <section class="single_news__sub-header">
-            <a href="javascript:;">{{ getNewsContent(newsOrder).topLink }}</a>
+            <a href="javascript:;">{{ theArticle.topLink }}</a>
             <hr />
           </section>
           <section class="single_news__header">
-            <h1>{{ getNewsContent(newsOrder).title }}</h1>
+            <h1>{{ theArticle.title }}</h1>
             <br />
-            <p class="text-left">{{ getNewsContent(newsOrder).text }}</p>
-            <p class="text-left">上次更新於 {{ getNewsContent(newsOrder).lastUpdate }}</p>
+            <p class="text-left">{{ theArticle.author }}</p>
+            <p class="text-left">上次更新於 {{ theArticle.lastUpdate }}</p>
             <hr />
             <section class="text-left my-2 d-flex align-items-center">
-              <span>{{ getNewsContent(newsOrder).firstCreate }}</span>
+              <span>{{ theArticle.firstCreate }}</span>
               <span class="ml-3">|</span>
               <b-icon-facebook class="ml-3"></b-icon-facebook>
               <b-icon-twitter class="ml-3"></b-icon-twitter>
@@ -33,14 +33,14 @@
             </section>
             <section>
               <img
-                :src="'https://picsum.photos/1024/480/?image=' + (Number(newsOrder) + 165)"
+                :src="'https://picsum.photos/1024/480/?image=' + (Number() + 165)"
                 alt=""
               />
             </section>
           </section>
           <section class="single_news__tags d-flex">
             <div
-              v-for="(tag, index) in getNewsContent(newsOrder).tags"
+              v-for="(tag, index) in theArticle.tags"
               class="tag"
               :key="'tag' + index"
             >
@@ -51,7 +51,7 @@
           </section>
           <section class="single_news__article">
             <article>
-              <p class="text-left">{{ getNewsContent(newsOrder).content }}</p>
+              <p class="text-left">{{ theArticle.content }}</p>
             </article>
           </section>
         </section>
@@ -65,7 +65,7 @@
             <span>相關</span>
           </h2>
           <a
-            v-for="(link, index) in getNewsContent(newsOrder).sideLinks"
+            v-for="(link, index) in theArticle.sideLinks"
             href="javascript:;"
             :key="'link' + index"
           >
@@ -80,51 +80,79 @@
         </section>
       </b-col>
     </b-row>
-    <Messages
-      :newsOrder="newsOrder"
-      :newsId="getNewsContent(newsOrder).id"
-    />
+    <Messages :articleId="articleId" />
   </b-container>
 </template>
 
 <script>
-import newsData from './components/newsData.json'
 import Messages from './components/messages.vue'
 export default {
-  props: ['newsOrder'],
+  props: ['articleId'],
   components: {
     Messages
   },
   data () {
     return {
-      newsData: newsData,
+      theArticle: {},
       sidebarTitle: '',
       postMessage: '',
       nickName: ''
     }
   },
   created () {
-    // console.log(this.newsData)
+    this.getArticle(this.articleId).then(response => {
+      this.theArticle = response.data.result
+    })
   },
   methods: {
-    getNewsContent (newsOrder) {
-      switch (Number(newsOrder)) {
-        case 1: return this.newsData.news1
-        case 2: return this.newsData.news2
-        case 3: return this.newsData.news3
-        case 4: return this.newsData.news4
-        case 5: return this.newsData.news5
-        case 6: return this.newsData.news6
-        case 7: return this.newsData.news7
-        case 8: return this.newsData.news8
-        case 9: return this.newsData.news9
-        case 10: return this.newsData.news10
-        case 100: return this.newsData.slide1
-        case 101: return this.newsData.slide2
-        case 102: return this.newsData.slide3
-        case 103: return this.newsData.slide4
-        case 104: return this.newsData.slide5
-        default: break
+    getArticle (articleId) {
+      return this.$http({
+        method: 'get',
+        url: `/getArticle/${articleId}`,
+      });
+    },
+    getNewsContent () {
+      return {
+        "articleId": "arti-6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
+        "outsideTitle": "標題6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
+        "topLink": "標題6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
+        "title": "會否過最2的標題54121d皇馬？沙拿：去留不由我話事",
+        "author": "標題6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
+        "lastUpdate": "2016年11月8日",
+        "firstCreate": "12:22 2016年11月8日",
+        "firstTimeStamp": 1454905321000,
+        "lastUpdatTimeStampe": 1454905441000,
+        "imgSrc": "https://picsum.photos/1024/480/?image=841",
+        "outsideImgSrc": "https://picsum.photos/1024/480/?image=208",
+        "tags": [
+          {
+            "text": "英格蘭",
+            "to": "https://www.yahoo.com.tw"
+          },
+          {
+            "text": "LIVERPOOL",
+            "to": "https://www.yahoo.com.tw"
+          },
+          {
+            "text": "英格蘭超級聯賽",
+            "to": "https://www.yahoo.com.tw"
+          }
+        ],
+        "content": "VVVVVV",
+        "sideLinks": [
+          {
+            "text": "英超大賽場",
+            "to": "https://www.yahoo.com.tw"
+          },
+          {
+            "text": "英超大賽場2",
+            "to": "https://www.yahoo.com.tw"
+          }
+        ],
+        "outSideFooterText": "faosdjfioa",
+        "_id": "60a25b75138a632a10c09e52",
+        "__v": 0,
+        "footerTime": "2016年11月8日"
       }
     }
   }

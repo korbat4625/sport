@@ -92,7 +92,7 @@ import StringSearch from '../../../vendor/ToolGood.Words.StringSearch'
 import Translate from '../../../vendor/ToolGood.Words.Translate.js'
 import sensitiveData from './sensitive.json'
 export default {
-  props: ['newsOrder', 'newsId'],
+  props: ['articleId'],
   data () {
     return {
       msgBox: [],
@@ -121,10 +121,9 @@ export default {
   },
   methods: {
     async getMessages () {
-      // const result = await axios.get('/getArticleMessage/' + this.newsOrder);
       const result = await this.$http({
         method: 'GET',
-        url: '/getArticleMessage/' + this.newsId
+        url: '/getArticleMessage/' + this.articleId
       });
       this.msgBox = result.data;
     },
@@ -150,7 +149,7 @@ export default {
       }
       const sendMsg = async (postMessage) => {
         const form = {
-          articleId: this.newsId,
+          articleId: this.articleId,
           postUser: this.nickName,
           message: postMessage
         };
@@ -183,7 +182,7 @@ export default {
     },
     async light (postId, value) {
       const patchData = {
-        articleId: postId,
+        postId,
         lightUp: value
       }
       await this.$http({

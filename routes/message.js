@@ -16,12 +16,12 @@ function checkSensitive (message) {
 
 // 文章下留言，點亮點滅
 router.patch('/lightUp', async (req, res) => {
-  const { articleId, lightUp } = req.body;
+  const { postId, lightUp } = req.body;
   let updateData = {};
   let findTheLightPersonAtPositive = -1;
   let findTheLightPersonAtNegative = -1;
   try {
-    const foundPost = await MessageModel.findOne({ postId: articleId });
+    const foundPost = await MessageModel.findOne({ postId });
     if (foundPost.lightUp === undefined) {
       foundPost.lightUp.quantity = 0;
       foundPost.lightUp.quantity += lightUp;
@@ -78,13 +78,14 @@ router.patch('/lightUp', async (req, res) => {
       }
       updateData = foundPost.lightUp;
     }
-    await MessageModel.updateOne({ postId: articleId }, { lightUp: updateData });
+    await MessageModel.updateOne({ postId }, { lightUp: updateData });
     res.status(200);
     return res.send({
       message: '更新成功',
       result: {}
     });
   } catch (err) {
+    console.error(err)
     res.status(500);
     return res.send({
       message: '錯誤, ' + err.name,
@@ -101,7 +102,9 @@ router.patch('/lightUp', async (req, res) => {
 // })
 
 router.post('/postArticle', async (req, res) => {
-  const { outsideTitle, topLink, title, author, lastUpdate, firstCreate, imgSrc, outsideImgSrc, tags, content, sideLinks } = req.body
+  const { outsideTitle, topLink, title, author, lastUpdate, firstCreate, firstTimeStamp,
+    lastUpdatTimeStampe, imgSrc, outsideImgSrc, tags, content, sideLinks, outSideFooterText,
+    outSideFooterTime } = req.body
   try {
     await new articleModel({
       articleId: _uuid(),
@@ -111,11 +114,15 @@ router.post('/postArticle', async (req, res) => {
       author,
       lastUpdate,
       firstCreate,
+      firstTimeStamp,
+      lastUpdatTimeStampe,
       imgSrc,
       outsideImgSrc,
       tags,
       content,
-      sideLinks
+      sideLinks,
+      outSideFooterText,
+      outSideFooterTime
     }).save(opt)
     res.status(200)
     res.send({ message: '成功' })

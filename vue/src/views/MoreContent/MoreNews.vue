@@ -8,8 +8,8 @@
     <b-row>
       <b-col
         cols="8"
-        v-for="report in reports"
-        :key="report.timeTitle"
+        v-for="(report, index) in reportss"
+        :key="report.timeTitle + index"
         class="news__container"
       >
         <div class="report__timeTitle">
@@ -18,10 +18,13 @@
         <b-row>
           <b-col
             cols="6 my-3"
-            v-for="content in report.contents"
-            :key="content.title"
+            v-for="(content, inedx) in report.contents"
+            :key="content.firstCreate + inedx"
           >
-            <div class="news news__third">
+            <div
+              class="news news__third"
+              @click="gotoNews(content.articleId)"
+            >
               <div class="news__head--third d-inline-block">
                 <img
                   :src="content.imgSrc"
@@ -33,8 +36,8 @@
               </div>
               <div class="news__foot--third">
                 <div class="news__foot__content">
-                  {{ content.footerText }}
-                  <span>{{ content.time }}</span>
+                  {{ content.outSideFooterText }}
+                  <span>{{ content.outSideFooterTime }}</span>
                 </div>
               </div>
             </div>
@@ -49,44 +52,39 @@
 export default {
   data () {
     return {
-      reports: [
-        {
-          // 時間區塊開始
-          timeTitle: this.timeSetting(2020, 3, 14),
-          contents: [
-            {
-              title: '標題一標題一',
-              imgSrc: 'https://picsum.photos/1024/480/?image=129',
-              footerText: '底部文字底部文字',
-              time: '2020/02/02'
-            },
-            {
-              title: '標題424標題424標題一',
-              imgSrc: 'https://picsum.photos/1024/480/?image=789',
-              footerText: '底部文字底部文字',
-              time: '2020/02/02'
-            },
-            {
-              title: '6652666526',
-              imgSrc: 'https://picsum.photos/1024/480/?image=664',
-              footerText: '底部文字底部文字',
-              time: '2020/02/02'
-            }
-          ]
-        }, // 時間區塊結束
-        {
-          timeTitle: this.timeSetting(2019, 12, 30),
-          contents: [
-            {
-              title: '201912302019123020191230',
-              imgSrc: 'https://picsum.photos/1024/480/?image=56',
-              footerText: '底部文字底部文字2019123020191230',
-              time: '2019123020191230'
-            }
-          ]
-        }
-      ]
+      reportss: []
     };
+  },
+  created () {
+    this.getLinkedArticles().then(response => {
+      const articles = response.data.result;
+      let reports = articles.map(arti => {
+        return {
+          timeTitle: arti.firstCreate.split(' ')[1],
+          contents: []
+        };
+      });
+
+      const articleCage = [reports[0]]
+      for (let index = 1; index < reports.length; index++) {
+        if (reports[index].timeTitle !== reports[index - 1].timeTitle) articleCage.push(reports[index]);
+      }
+      // 去重的另一個辦法，比較不直觀但潮
+      // var hash = {};
+      // reports = reports.reduce(function (item, next) {
+      //   hash[next.timeTitle] ? '' : hash[next.timeTitle] = true && item.push(next);
+      //   return item;
+      // }, []);
+      // console.log(articleCage)
+
+      articles.forEach(article => {
+        const i = articleCage.findIndex(articleBase => {
+          return articleBase.timeTitle === article.firstCreate.split(' ')[1];
+        });
+        articleCage[i].contents.push(article);
+      })
+      this.reportss = articleCage;
+    })
   },
   mounted () {
     window.scroll({
@@ -96,6 +94,12 @@ export default {
   methods: {
     timeSetting (year, month, date) {
       return year + ' 年 ' + month + ' 月 ' + date + ' 日 ';
+    },
+    getLinkedArticles () {
+      return this.$http({
+        method: 'get',
+        url: '/getLinkedArticle'
+      });
     }
   }
 };

@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const articleModelName = 'article'
-
 const ArticleSchema = new mongoose.Schema({
   articleId: {
     type: String,
-    default: 'slide',
-    required: [true, 'need to give slideId.']
+    default: '',
+    required: [true, 'need to give articleId.']
   },
   outsideTitle: {
     type: String,
@@ -37,6 +36,16 @@ const ArticleSchema = new mongoose.Schema({
     default: '',
     required: [true, 'need to input firstCreate.']
   },
+  firstTimeStamp: {
+    type: Number,
+    default: 0,
+    required: [true, 'need to input firstTimeStamp.']
+  },
+  lastUpdatTimeStampe: {
+    type: Number,
+    default: 0,
+    required: [true, 'need to input firstTimeStamp.']
+  },
   imgSrc: {
     type: String,
     default: '',
@@ -65,8 +74,18 @@ const ArticleSchema = new mongoose.Schema({
       "text": "",
       "to": ""
     }]
+  },
+  outSideFooterText: {
+    type: String,
+    default: '',
+    required: [true, 'need to input outSideFooterText.']
+  },
+  outSideFooterTime: {
+    type: String,
+    default: '',
+    required: [true, 'need to input outSideFooterTime.']
   }
 })
 
-const articleModel = new mongoose.model(articleModelName, ArticleSchema)
-module.exports = articleModel
+const ArticleModel = mongoose.model(articleModelName, ArticleSchema)
+module.exports = ArticleModel

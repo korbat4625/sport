@@ -23,7 +23,7 @@ const routes = [
   },
 
   {
-    path: '/news/:newsOrder',
+    path: '/news/:articleId',
     component: () => import('@/views/NewsPage/NewsPage.vue'),
     props: true
   }

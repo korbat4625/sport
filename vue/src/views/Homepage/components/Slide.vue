@@ -20,101 +20,23 @@
         @sliding-start="onSlideStart"
         @sliding-end="onSlideEnd"
       >
-        <b-carousel-slide>
+        <b-carousel-slide
+          v-for="article in articles"
+          :key="article.articleId"
+        >
           <template #img>
             <div
               class="d-flex h-100 hovered"
-              @click="gotoNews(100)"
+              @click="gotoNews(article.articleId)"
             >
               <div class="img-container">
                 <img
-                  :src="slide1.imgSrc"
+                  :src="article.outsideImgSrc"
                   alt="image slot"
                 />
               </div>
               <div class="big-title d-flex justify-content-center align-items-center">
-                <h2>{{ slide1.title }}</h2>
-              </div>
-            </div>
-          </template>
-        </b-carousel-slide>
-
-        <!-- Slides with custom text -->
-        <b-carousel-slide>
-          <template #img>
-            <div
-              class="d-flex h-100 hovered"
-              @click="gotoNews(101)"
-            >
-              <div class="img-container">
-                <img
-                  :src="slide2.imgSrc"
-                  alt="image slot"
-                />
-              </div>
-              <div class="big-title d-flex justify-content-center align-items-center">
-                <h2>{{ slide2.title }}</h2>
-              </div>
-            </div>
-          </template>
-        </b-carousel-slide>
-
-        <!-- Slides with image only -->
-        <b-carousel-slide>
-          <template #img>
-            <div
-              class="d-flex h-100 hovered"
-              @click="gotoNews(102)"
-            >
-              <div class="img-container">
-                <img
-                  :src="slide3.imgSrc"
-                  alt="image slot"
-                />
-              </div>
-              <div class="big-title d-flex justify-content-center align-items-center">
-                <h2>{{ slide3.title }}</h2>
-              </div>
-            </div>
-          </template>
-        </b-carousel-slide>
-
-        <!-- Slides with img slot -->
-        <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-        <b-carousel-slide>
-          <template #img>
-            <div
-              class="d-flex h-100 hovered"
-              @click="gotoNews(103)"
-            >
-              <div class="img-container">
-                <img
-                  :src="slide4.imgSrc"
-                  alt="image slot"
-                />
-              </div>
-              <div class="big-title d-flex justify-content-center align-items-center">
-                <h2>{{ slide4.title }}</h2>
-              </div>
-            </div>
-          </template>
-        </b-carousel-slide>
-
-        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-        <b-carousel-slide>
-          <template #img>
-            <div
-              class="d-flex h-100 hovered"
-              @click="gotoNews(104)"
-            >
-              <div class="img-container">
-                <img
-                  :src="slide5.imgSrc"
-                  alt="image slot"
-                />
-              </div>
-              <div class="big-title d-flex justify-content-center align-items-center">
-                <h2>{{ slide5.title }}</h2>
+                <h2>{{ article.outsideTitle }}</h2>
               </div>
             </div>
           </template>
@@ -127,31 +49,14 @@
 <script>
 import router from '../../../router';
 export default {
+  props: {
+    articles: {
+      type: Array,
+      default: () => []
+    }
+  },
   data () {
     return {
-      slide1: {
-        imgSrc: 'https://picsum.photos/1024/480/?image=9',
-        title:
-          '大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1'
-      },
-      slide2: {
-        imgSrc: 'https://picsum.photos/1024/480/?image=69',
-        title: '大標題2大標題2大標題2大標題2大標題1大標題1大標題1大標題1'
-      },
-      slide3: {
-        imgSrc: 'https://picsum.photos/1024/480/?image=159',
-        title:
-          '大標題3大標題3大標題3大標題3大標題3大標題1大標題1大標題1大標題1大標題1'
-      },
-      slide4: {
-        imgSrc: 'https://picsum.photos/1024/480/?image=229',
-        title: '大標題4大標題4大標題'
-      },
-      slide5: {
-        imgSrc: 'https://picsum.photos/1024/480/?image=879',
-        title:
-          '大標題5大標題5大標題5大標題5大標題5大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1大標題1'
-      }
     };
   },
   methods: {
@@ -163,8 +68,8 @@ export default {
       this.sliding = false;
       // console.log(slide);
     },
-    gotoNews (news) {
-      router.push('/news/' + news);
+    gotoNews (id) {
+      router.push('/news/' + id);
     },
   }
 };

@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.get('/refreshUU', (req, res) => {
+router.get('refreshUU', (req, res) => {
   console.log('要給uuid cookie')
   res.cookie('sportUUD', '_uuid()');
   res.send('Check your cookies. One should be in there now');
@@ -22,6 +22,31 @@ router.get('/getArticle/:articleId', async (req, res) => {
       result: data
     })
   } catch (err) {
+    res.status(500);
+    const response = {
+      code: 'E0000',
+      status: 1,
+      message: err,
+      data: {
+        result: {}
+      }
+    }
+    res.send(response);
+  }
+})
+
+router.get('/getAllArticle', async (req, res) => {
+  try {
+    const allArticle = await ArticleModel.find({}).sort({ firstTimeStamp: 'desc' });
+    res.status(200);
+    res.send({
+      code: 'E0000',
+      status: 1,
+      message: 'success',
+      result: allArticle
+    })
+  } catch (err) {
+    console.log(err);
     res.status(500);
     const response = {
       code: 'E0000',

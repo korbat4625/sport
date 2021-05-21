@@ -92,13 +92,10 @@ export default {
     });
   },
   methods: {
-    timeSetting (year, month, date) {
-      return year + ' 年 ' + month + ' 月 ' + date + ' 日 ';
-    },
     getLinkedArticles () {
       return this.$http({
         method: 'get',
-        url: '/getLinkedArticle'
+        url: '/getAllArticle'
       });
     },
     gotoNews (id) {

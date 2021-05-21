@@ -110,50 +110,6 @@ export default {
         method: 'get',
         url: `/getArticle/${articleId}`,
       });
-    },
-    getNewsContent () {
-      return {
-        "articleId": "arti-6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
-        "outsideTitle": "標題6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
-        "topLink": "標題6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
-        "title": "會否過最2的標題54121d皇馬？沙拿：去留不由我話事",
-        "author": "標題6f2314fa-11e8-4cee-8cf6-933f12c7e82c",
-        "lastUpdate": "2016年11月8日",
-        "firstCreate": "12:22 2016年11月8日",
-        "firstTimeStamp": 1454905321000,
-        "lastUpdatTimeStampe": 1454905441000,
-        "imgSrc": "https://picsum.photos/1024/480/?image=841",
-        "outsideImgSrc": "https://picsum.photos/1024/480/?image=208",
-        "tags": [
-          {
-            "text": "英格蘭",
-            "to": "https://www.yahoo.com.tw"
-          },
-          {
-            "text": "LIVERPOOL",
-            "to": "https://www.yahoo.com.tw"
-          },
-          {
-            "text": "英格蘭超級聯賽",
-            "to": "https://www.yahoo.com.tw"
-          }
-        ],
-        "content": "VVVVVV",
-        "sideLinks": [
-          {
-            "text": "英超大賽場",
-            "to": "https://www.yahoo.com.tw"
-          },
-          {
-            "text": "英超大賽場2",
-            "to": "https://www.yahoo.com.tw"
-          }
-        ],
-        "outSideFooterText": "faosdjfioa",
-        "_id": "60a25b75138a632a10c09e52",
-        "__v": 0,
-        "footerTime": "2016年11月8日"
-      }
     }
   }
 };

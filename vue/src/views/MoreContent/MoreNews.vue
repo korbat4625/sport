@@ -27,7 +27,7 @@
             >
               <div class="news__head--third d-inline-block">
                 <img
-                  :src="content.imgSrc"
+                  :src="content.outsideImgSrc"
                   alt="image slot"
                 />
               </div>
@@ -57,6 +57,7 @@ export default {
   },
   created () {
     this.getLinkedArticles().then(response => {
+      console.log(response)
       const articles = response.data.result;
       let reports = articles.map(arti => {
         return {
@@ -84,6 +85,7 @@ export default {
         articleCage[i].contents.push(article);
       })
       this.reportss = articleCage;
+      console.log(articleCage)
     })
   },
   mounted () {

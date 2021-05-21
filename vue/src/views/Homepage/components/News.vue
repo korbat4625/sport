@@ -14,7 +14,7 @@
             @click="gotoNews(newsData1.articleId)"
           >
             <div class="news__head d-inline-block"><img
-                :src="newsData1.imgSrc"
+                :src="newsData1.outsideImgSrc"
                 alt="image slot"
               /></div>
             <div class="news__body d-inline-block">
@@ -35,7 +35,7 @@
                 @click="gotoNews(theNews.articleId)"
               >
                 <div class="news__head--third d-inline-block"><img
-                    :src="theNews.imgSrc"
+                    :src="theNews.outsideImgSrc"
                     alt="image slot"
                   /></div>
                 <div class="news__body--third d-inline-block">
@@ -64,7 +64,7 @@
             @click="gotoNews(theNews.articleId)"
           >
             <div class="news__head--third d-inline-block"><img
-                :src="theNews.imgSrc"
+                :src="theNews.outsideImgSrc"
                 alt="image slot"
               /></div>
             <div class="news__body--third d-inline-block">

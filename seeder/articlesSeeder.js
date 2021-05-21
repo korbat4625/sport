@@ -96,6 +96,20 @@ function articleSeeder () {
       const DF = new Date(dateStamps.firstTimeStamp)
       const DL = new Date(dateStamps.lastUpdatTimeStampe)
       const uuid = _uuid()
+      const max = 1200
+      const min = 1
+      // const checkResource = async (url) => {
+      //   var http = require('http'),
+      //   options = { method: 'HEAD', host: 'stackoverflow.com', port: 80, path: '/'},
+      //   req = http.request(options, function(r) {
+      //       console.log(JSON.stringify(r.headers));
+      //   });
+      //   req.end();
+
+      //   const data = await fetch(url)
+      //   console.log(data)
+      //   res
+      // }
       tobeLinkList.push({
         articleId: `arti-${uuid}`
       })
@@ -109,8 +123,8 @@ function articleSeeder () {
         "firstCreate": DF.getHours() + ':' + DF.getMinutes() + ' ' + DF.getFullYear() + '年' + DF.getMonth() + 1 + '月' + DF.getDate() + '日',
         "firstTimeStamp": dateStamps.firstTimeStamp,
         "lastUpdatTimeStampe": dateStamps.lastUpdatTimeStampe,
-        "imgSrc": `https://picsum.photos/1024/480/?image=${Math.floor(Math.random() * 1000) + 1}`,
-        "outsideImgSrc": `https://picsum.photos/1024/480/?image=${Math.floor(Math.random() * 1000) + 1}`,
+        "imgSrc": `https://picsum.photos/1024/480/?image=${parseInt(Math.random() * (max - min + 1) + min, 10)}`,
+        "outsideImgSrc": `https://picsum.photos/1024/480/?image=${parseInt(Math.random() * (max - min + 1) + min, 10)}`,
         "tags": [
           {
             "text": "英格蘭",
@@ -125,7 +139,7 @@ function articleSeeder () {
             "to": "https://www.yahoo.com.tw"
           }
         ],
-        "content": "VVVVVV",
+        "content": `${uuid}`,
         "sideLinks": [
           {
             "text": "英超大賽場",

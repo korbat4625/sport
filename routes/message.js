@@ -17,68 +17,62 @@ function checkSensitive (message) {
 // 文章下留言，點亮點滅
 router.patch('/lightUp', async (req, res) => {
   const { postId, lightUp } = req.body;
-  let updateData = {};
-  let findTheLightPersonAtPositive = -1;
-  let findTheLightPersonAtNegative = -1;
-  try {
-    const foundPost = await MessageModel.findOne({ postId });
-    if (foundPost.lightUp === undefined) {
-      foundPost.lightUp.quantity = 0;
-      foundPost.lightUp.quantity += lightUp;
-      foundPost.lightUp.whoPositive = [];
-      foundPost.lightUp.whoNegative = [];
-    } else {
-      // 找此人之前點過亮或滅
-      findTheLightPersonAtPositive = foundPost.lightUp.whoPositive.findIndex(
-        persons => persons === req.cookies.name
-      );
+  const theMessageLightUp = await MessageModel.findOne({ postId });
 
-      findTheLightPersonAtNegative = foundPost.lightUp.whoNegative.findIndex(
-        persons => persons === req.cookies.name
-      );
-
-      // 點亮點滅邏輯
-      if (findTheLightPersonAtPositive >= 0 && lightUp === 1) { // 之前點過正面且想點正面
-        res.status(200);
-        return res.send({
-          status: 1,
-          message: '成功',
-          code: 'DO_NOTHING'
-        });
-      } else if (findTheLightPersonAtPositive >= 0 && lightUp === -1) { // 之前點過正面且想點負面
-        foundPost.lightUp.whoPositive.splice(findTheLightPersonAtPositive, 1);
-        foundPost.lightUp.whoNegative.push(req.cookies.name);
-        foundPost.lightUp.quantityPositive--;
-        foundPost.lightUp.quantityNegative++;
-        foundPost.lightUp.cookieUserLight = 'ceasefire'
-      } else if (findTheLightPersonAtNegative >= 0 && lightUp === -1) { // 之前點過負面且想點負面
-        res.status(200);
-        return res.send({
-          status: 1,
-          message: '成功',
-          code: 'DO_NOTHING'
-        });
-      } else if (findTheLightPersonAtNegative >= 0 && lightUp === 1) { // 之前點過負面且想點正面
-        foundPost.lightUp.whoNegative.splice(findTheLightPersonAtNegative, 1);
-        foundPost.lightUp.whoPositive.push(req.cookies.name);
-        foundPost.lightUp.quantityPositive++;
-        foundPost.lightUp.quantityNegative--;
-        foundPost.lightUp.cookieUserLight = 'fire'
-      } else { // 什麼都沒點過
-        if (lightUp === 1) {
-          foundPost.lightUp.whoPositive.push(req.cookies.name);
-          foundPost.lightUp.cookieUserLight = 'fire'
-          foundPost.lightUp.quantityPositive++;
-        }
-        if (lightUp === -1) {
-          foundPost.lightUp.whoNegative.push(req.cookies.name);
-          foundPost.lightUp.cookieUserLight = 'ceasefire'
-          foundPost.lightUp.quantityNegative--;
-        }
-      }
-      updateData = foundPost.lightUp;
+  console.log('要被更新的文章:', theMessageLightUp);
+  console.log('更新的人:', req.cookies.sportUUD);
+  console.log('lightUp:', lightUp);
+  // 0 表示此人之前沒有對此留言表示過好壞
+  if (theMessageLightUp.lightUp.cookieUserLight.length === 0) {
+    if (lightUp === 1) {
+      console.log('表示此人之前沒有對此留言表示過好壞，想點好')
+      theMessageLightUp.lightUp.quantityPositive += 1;
+      theMessageLightUp.lightUp.cookieUserLight = 'fire';
+      theMessageLightUp.lightUp.whoPositive.push(req.cookies.sportUUD);
     }
-    await MessageModel.updateOne({ postId }, { lightUp: updateData });
+    if (lightUp === -1) {
+      console.log('表示此人之前沒有對此留言表示過好壞，想點壞')
+      theMessageLightUp.lightUp.quantityNegative += 1;
+      theMessageLightUp.lightUp.cookieUserLight = 'ceasefire';
+      theMessageLightUp.lightUp.whoNegative.push(req.cookies.sportUUD);
+    }
+  } else {
+    // 此人之前點過正面，又想點正面
+    if (theMessageLightUp.lightUp.cookieUserLight === 'fire' && lightUp === 1) {
+      console.log('此人之前點過正面，又想點正面')
+      return res.send('Do nothing');
+    } else if (theMessageLightUp.lightUp.cookieUserLight === 'fire' && lightUp === -1) {
+      // 此人之前點過正面，又想點負面，從正面陣列刪除，加入反面陣列
+      console.log('此人之前點過正面，又想點負面，從正面陣列刪除，加入反面陣列', theMessageLightUp.lightUp.whoNegative.indexOf(req.cookies.sportUUD));
+      if (theMessageLightUp.lightUp.whoNegative.indexOf(req.cookies.sportUUD) === -1) {
+        theMessageLightUp.lightUp.whoNegative.push(req.cookies.sportUUD)
+      }
+      theMessageLightUp.lightUp.whoPositive.splice(theMessageLightUp.lightUp.whoPositive.indexOf(req.cookies.sportUUD), 1);
+      theMessageLightUp.lightUp.cookieUserLight = 'ceasefire'
+      theMessageLightUp.lightUp.quantityNegative += 1
+      theMessageLightUp.lightUp.quantityPositive -= 1
+    } else if (theMessageLightUp.lightUp.cookieUserLight === 'ceasefire' && lightUp === -1) {
+      // 此人之前點過負面，又想點負面
+      console.log('此人之前點過負面，又想點負面')
+      return res.send('Do nothing');
+    } else if (theMessageLightUp.lightUp.cookieUserLight === 'ceasefire' && lightUp === 1) {
+      // 此人之前點過負面，又想點正面，從負面陣列刪除，加入正面陣列
+      console.log('此人之前點過負面，又想點正面，從負面陣列刪除，加入正面陣列')
+      if (theMessageLightUp.lightUp.whoPositive.indexOf(req.cookies.sportUUD) === -1) {
+        theMessageLightUp.lightUp.whoPositive.push(req.cookies.sportUUD)
+      }
+      theMessageLightUp.lightUp.whoNegative.splice(theMessageLightUp.lightUp.whoPositive.indexOf(req.cookies.sportUUD), 1);
+      theMessageLightUp.lightUp.cookieUserLight = 'fire'
+      theMessageLightUp.lightUp.quantityNegative -= 1
+      theMessageLightUp.lightUp.quantityPositive += 1
+    }
+  }
+
+  console.log('準備更新的資料', theMessageLightUp)
+
+  // res.end()
+  try {
+    await MessageModel.updateOne({ postId }, { lightUp: theMessageLightUp.lightUp });
     res.status(200);
     return res.send({
       message: '更新成功',

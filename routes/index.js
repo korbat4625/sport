@@ -4,9 +4,9 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/refreshUU', (req, res) => {
   console.log('要給uuid cookie')
-  res.cookie('name', '_uuid()');
+  res.cookie('sportUUD', '_uuid()');
   res.send('Check your cookies. One should be in there now');
 });
 

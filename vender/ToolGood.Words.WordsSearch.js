@@ -4,8 +4,8 @@
 // 更新日志
 // 2020.05.17 修改，支持大于0xffff的字符
 
-function WordsSearch() {
-    function TrieNode() {
+function WordsSearch () {
+    function TrieNode () {
         this.Index = 0;
         this.Layer = 0;
         this.End = false;
@@ -33,7 +33,7 @@ function WordsSearch() {
             this.Results.push(index)
         }
     }
-    function TrieNode2() {
+    function TrieNode2 () {
         this.End = false;
         this.Results = [];
         this.m_values = {};
@@ -81,7 +81,7 @@ function WordsSearch() {
         }
         SetKeywords2();
     }
-    function SetKeywords2() {
+    function SetKeywords2 () {
         var root = new TrieNode();
 
         var allNodeLayer = {};
@@ -322,3 +322,5 @@ function WordsSearch() {
     }
 
 }
+
+module.exports = WordsSearch

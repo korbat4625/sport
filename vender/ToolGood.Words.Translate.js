@@ -331,4 +331,4 @@ function Translate () {
     }
 }
 
-export default Translate
+module.exports = Translate

@@ -9,7 +9,7 @@
           尚無留言
         </div>
         <div
-          v-for="msgData in msgBox"
+          v-for="(msgData, index) in msgBox"
           :key="msgData._id"
         >
           <b-row>
@@ -17,13 +17,16 @@
               <section
                 class="mr-4"
                 style="width: 50px;"
-              >{{ msgData.__v }}</section>
+              >{{ index }}</section>
               <section style="width: 70%;">
                 <div class="d-flex m-2">
                   <div>{{ msgData.postUser }}</div>
                   <div class="ml-3">{{ convertDate(msgData.postTime) }}</div>
                 </div>
-                <div class="text-left m-2">{{ msgData.message }}</div>
+                <div
+                  class="text-left m-2"
+                  v-html="msgData.message"
+                ></div>
                 <div class="text-left m-2">
                   <a
                     href="javascript:;"
@@ -87,10 +90,6 @@
 
 
 <script>
-import StringSearch from '../../../vendor/ToolGood.Words.StringSearch'
-// import Pinyin from '../../../vendor/ToolGood.Words.Pinyin.js'
-import Translate from '../../../vendor/ToolGood.Words.Translate.js'
-import sensitiveData from './sensitive.json'
 export default {
   props: ['articleId'],
   data () {
@@ -98,26 +97,11 @@ export default {
       msgBox: [],
       postMessage: '',
       nickName: '',
-      iwords: null,
-      pinyin: null,
-      translate: null,
       sensitiveWords: ''
     }
   },
   created () {
     this.getMessages();
-    this.iwords = new StringSearch();
-    // this.pinyin = new Pinyin();
-    this.translate = new Translate();
-    // console.log(this.pinyin.GetPinyinForName("壹佰贰拾叁億肆仟伍佰陆拾柒萬捌仟玖佰零壹元壹角贰分"));
-    for (let index = 0; index < sensitiveData.length; index++) {
-      if (index === sensitiveData.length - 1) {
-        this.sensitiveWords += sensitiveData[index]
-      } else {
-        this.sensitiveWords += sensitiveData[index] + '|'
-      }
-    }
-    this.iwords.SetKeywords(this.sensitiveWords.split('|'));
   },
   methods: {
     async getMessages () {
@@ -127,56 +111,44 @@ export default {
       });
       this.msgBox = result.data;
     },
-    sendMessage () {
+    async sendMessage () {
       if (!this.postMessage.length || !this.nickName.length) return ''
 
-      // const postMessage = this.postMessage.replace(/\s/g, '');
-      const words_t = this.translate.ToTraditionalChinese(this.postMessage);
-      // const words_s = this.translate.ToSimplifiedChinese(this.postMessage);
-      let hasSens = false
-      const checkSens = (words_t) => {
-        let words = words_t
-        let theReplaceSingle = this.iwords.FindFirst(words);
-        if (theReplaceSingle === null) {
-          return words;
-        } else {
-          hasSens = true
-          words = words.split(theReplaceSingle);
-          theReplaceSingle = theReplaceSingle.substring(0, theReplaceSingle.length - 1) + '*';
-          words = words[0] + theReplaceSingle + words[1];
-          return checkSens(words)
-        }
-      }
-      const sendMsg = async (postMessage) => {
-        const form = {
+      const sendMsg = async (postMessage, alwaysSend) => {
+        let form = {}
+        form = {
           articleId: this.articleId,
           postUser: this.nickName,
-          message: postMessage
+          message: postMessage,
+          alwaysSend: alwaysSend
         };
-        await this.$http({
+        return await this.$http({
           method: 'POST',
           url: '/postMessage',
           data: form
         });
-        await this.getMessages()
       }
 
-      const filteredText = checkSens(words_t)
-
-      if (hasSens) {
-        this.$bvModal.msgBoxConfirm('您輸入的留言含有敏感字詞，若要留言請點選確認。', {
-          okTitle: '確認',
-          cancelTitle: '取消',
-        })
-          .then(value => {
-            if (value) sendMsg(filteredText)
-            else return ''
+      await sendMsg(this.postMessage, false).then(response => {
+        if (response.data.code === 'SENSITIVE WORDS FOUND') {
+          this.$bvModal.msgBoxConfirm('您輸入的留言含有敏感字詞，若要留言請點選確認。', {
+            okTitle: '確認',
+            cancelTitle: '取消',
           })
-          .catch(err => {
-            console.log(err)
-            // An error occurred
-          })
-      } else sendMsg(filteredText)
+            .then(async clickYes => {
+              if (clickYes) {
+                await sendMsg(this.postMessage, true)
+                this.getMessages()
+              }
+              else return ''
+            })
+            .catch(err => {
+              console.log(err)
+              // An error occurred
+            })
+        }
+        this.getMessages()
+      })
     },
     async reply () {
     },

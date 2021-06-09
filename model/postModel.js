@@ -77,6 +77,10 @@ const PostMsgSchema = new mongoose.Schema({
       default: '',
       enum: ['ceasefire', 'fire', '']
     }
+  },
+  alwaysSend: {
+    type: Boolean,
+    default: false
   }
 })
 

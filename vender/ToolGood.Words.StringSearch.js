@@ -19,7 +19,7 @@ function StringSearch () {
             if (this.m_values[c] != null) {
                 return this.m_values[c];
             }
-            let node = new TrieNode();
+            var node = new TrieNode();
             node.Parent = this;
             node.Char = c;
             this.m_values[c] = node;
@@ -64,8 +64,8 @@ function StringSearch () {
         }
     }
 
-    let _first = [];
-    let _keywords = [];
+    var _first = [];
+    var _keywords = [];
 
     /**
      * 设置关键字
@@ -76,13 +76,13 @@ function StringSearch () {
         SetKeywords2();
     }
     function SetKeywords2 () {
-        let root = new TrieNode();
+        var root = new TrieNode();
 
-        let allNodeLayer = {};
-        for (let i = 0; i < _keywords.length; i++) {
-            let p = _keywords[i];
-            let nd = root;
-            for (let j = 0; j < p.length; j++) {
+        var allNodeLayer = {};
+        for (var i = 0; i < _keywords.length; i++) {
+            var p = _keywords[i];
+            var nd = root;
+            for (var j = 0; j < p.length; j++) {
                 nd = nd.Add(p.charCodeAt(j));
                 if (nd.Layer == 0) {
                     nd.Layer = j + 1;
@@ -97,64 +97,64 @@ function StringSearch () {
             nd.SetResults(i);
         }
 
-        let allNode = [];
+        var allNode = [];
         allNode.push(root);
-        for (let key in allNodeLayer) {
-            let nds = allNodeLayer[key];
-            for (let i = 0; i < nds.length; i++) {
+        for (var key in allNodeLayer) {
+            var nds = allNodeLayer[key];
+            for (var i = 0; i < nds.length; i++) {
                 allNode.push(nds[i]);
             }
         }
         allNodeLayer = null;
 
-        for (let i = 1; i < allNode.length; i++) {
-            let nd = allNode[i];
+        for (var i = 1; i < allNode.length; i++) {
+            var nd = allNode[i];
             nd.Index = i;
-            let r = nd.Parent.Failure;
-            let c = nd.Char;
+            var r = nd.Parent.Failure;
+            var c = nd.Char;
             while (r != null && !r.m_values[c])
                 r = r.Failure;
             if (r == null)
                 nd.Failure = root;
             else {
                 nd.Failure = r.m_values[c];
-                for (let key2 in nd.Failure.Results) {
-                    if (Object.prototype.hasOwnProperty.call(nd.Failure.Results, key2) == false) { continue; }
-                    let result = nd.Failure.Results[key2];
+                for (var key2 in nd.Failure.Results) {
+                    if (nd.Failure.Results.hasOwnProperty(key2) == false) { continue; }
+                    var result = nd.Failure.Results[key2];
                     nd.SetResults(result);
                 }
             }
         }
         root.Failure = root;
 
-        let allNode2 = [];
-        for (let i = 0; i < allNode.length; i++) {
+        var allNode2 = [];
+        for (var i = 0; i < allNode.length; i++) {
             allNode2.push(new TrieNode2());
         }
-        for (let i = 0; i < allNode2.length; i++) {
-            let oldNode = allNode[i];
-            let newNode = allNode2[i];
+        for (var i = 0; i < allNode2.length; i++) {
+            var oldNode = allNode[i];
+            var newNode = allNode2[i];
 
-            for (let key in oldNode.m_values) {
-                if (Object.prototype.hasOwnProperty.call(oldNode.m_values, key == false)) { continue; }
-                let index = oldNode.m_values[key].Index;
+            for (var key in oldNode.m_values) {
+                if (oldNode.m_values.hasOwnProperty(key) == false) { continue; }
+                var index = oldNode.m_values[key].Index;
                 newNode.Add(key, allNode2[index]);
             }
             for (let index = 0; index < oldNode.Results.length; index++) {
-                let item = oldNode.Results[index];
+                var item = oldNode.Results[index];
                 newNode.SetResults(item);
             }
             oldNode = oldNode.Failure;
             while (oldNode != root) {
-                for (let key in oldNode.m_values) {
-                    if (Object.prototype.hasOwnProperty.call(oldNode.m_values, key == false)) { continue; }
+                for (var key in oldNode.m_values) {
+                    if (oldNode.m_values.hasOwnProperty(key) == false) { continue; }
                     if (newNode.HasKey(key) == false) {
-                        let index = oldNode.m_values[key].Index;
+                        var index = oldNode.m_values[key].Index;
                         newNode.Add(key, allNode2[index]);
                     }
                 }
                 for (let index = 0; index < oldNode.Results.length; index++) {
-                    let item = oldNode.Results[index];
+                    var item = oldNode.Results[index];
                     newNode.SetResults(item);
                 }
                 oldNode = oldNode.Failure;
@@ -163,11 +163,11 @@ function StringSearch () {
         allNode = null;
         root = null;
 
-        // let first = [];
+        // var first = [];
         // for (let index = 0; index < 0xffff; index++) {
         //     first.push(null);
         // }
-        // for (let key in allNode2[0].m_values) {
+        // for (var key in allNode2[0].m_values) {
         //     if (allNode2[0].m_values.hasOwnProperty(key) == false) { continue; }
         //     first[key] = allNode2[0].m_values[key];
         // }
@@ -178,10 +178,10 @@ function StringSearch () {
      * @param {any} text
      */
     this.FindFirst = function (text) {
-        let ptr = null;
+        var ptr = null;
         for (let index = 0; index < text.length; index++) {
-            let t = text.charCodeAt(index);
-            let tn = null;
+            var t = text.charCodeAt(index);
+            var tn = null;
             if (ptr == null) {
                 tn = _first.TryGetValue(t);
             } else {
@@ -205,12 +205,12 @@ function StringSearch () {
      * @param {any} text
      */
     this.FindAll = function (text) {
-        let ptr = null;
-        let list = [];
+        var ptr = null;
+        var list = [];
 
         for (let index = 0; index < text.length; index++) {
-            let t = text.charCodeAt(index);
-            let tn = null;
+            var t = text.charCodeAt(index);
+            var tn = null;
             if (ptr == null) {
                 tn = _first.TryGetValue(t);
             } else {
@@ -222,7 +222,7 @@ function StringSearch () {
             if (tn != null) {
                 if (tn.End) {
                     for (let j = 0; j < tn.Results.length; j++) {
-                        let item = tn.Results[j];
+                        var item = tn.Results[j];
                         list.push(_keywords[item]);
                     }
                 }
@@ -237,10 +237,10 @@ function StringSearch () {
      * @param {any} text
      */
     this.ContainsAny = function (text) {
-        let ptr = null;
+        var ptr = null;
         for (let index = 0; index < text.length; index++) {
-            let t = text.charCodeAt(index);
-            let tn = null;
+            var t = text.charCodeAt(index);
+            var tn = null;
             if (ptr == null) {
                 tn = _first.TryGetValue(t);
             } else {
@@ -269,13 +269,13 @@ function StringSearch () {
             replaceChar = '*'
         }
 
-        let result = text.split('');
+        var result = text.split('');
 
-        let ptr = null;
-        for (let i = 0; i < text.length; i++) {
-            let t = text.charCodeAt(i);
+        var ptr = null;
+        for (var i = 0; i < text.length; i++) {
+            var t = text.charCodeAt(i);
 
-            let tn = null;
+            var tn = null;
             if (ptr == null) {
                 tn = _first.TryGetValue(t);
             } else {
@@ -286,9 +286,9 @@ function StringSearch () {
             }
             if (tn != null) {
                 if (tn.End) {
-                    let maxLength = _keywords[tn.Results[0]].length;
-                    let start = i + 1 - maxLength;
-                    for (let j = start; j <= i; j++) {
+                    var maxLength = _keywords[tn.Results[0]].length;
+                    var start = i + 1 - maxLength;
+                    for (var j = start; j <= i; j++) {
                         result[j] = replaceChar;
                     }
                 }
@@ -299,4 +299,4 @@ function StringSearch () {
     }
 }
 
-export default StringSearch
+module.exports = StringSearch

@@ -1,6 +1,38 @@
 <template>
   <b-row class="mt-5">
-    <b-col cols="12">
+    <b-col cols="12 mt-5">
+      <section class="leaveMessage-region">
+        <b-form-textarea
+          id="textarea"
+          v-model="postMessage"
+          placeholder="歡迎建議，提問題，共同學習..."
+          rows="3"
+          max-rows="6"
+          class="font12"
+        ></b-form-textarea>
+        <!-- <b-row class="mt-3">
+          <b-col cols="3 d-flex align-items-center">暱稱:</b-col>
+          <b-col cols="9">
+            <b-form-input
+              v-model="nickName"
+              placeholder="Enter your name"
+            ></b-form-input>
+          </b-col>
+        </b-row> -->
+      </section>
+    </b-col>
+    <b-col cols="12 text-left">
+      <b-button
+        class="my-3 std-btn leave-a-msg"
+        variant="info"
+        @click="sendMessage"
+      >提交評論
+      </b-button>
+    </b-col>
+
+    <b-col cols="12"><div class="splitter"></div></b-col>
+
+    <b-col cols="12 mt-3">
       <section class="message-region">
         <div
           class="text-center"
@@ -9,87 +41,69 @@
           尚無留言
         </div>
         <div
-          v-for="(msgData, index) in msgBox"
+          v-for="(msgData) in msgBox"
           :key="msgData._id"
         >
-          <b-row>
-            <b-col cols="12 d-flex p-2">
-              <section
-                class="mr-4"
-                style="width: 50px;"
-              >{{ index }}</section>
-              <section style="width: 70%;">
-                <div class="d-flex m-2">
-                  <div>{{ msgData.postUser }}</div>
-                  <div class="ml-3">{{ convertDate(msgData.postTime) }}</div>
+          <b-col cols="12 d-flex p-2">
+            <section
+              class="mr-4"
+            >
+              <img class="m-2" src="https://picsum.photos/seed/picsum/200/300" alt="" width="50" height="50">
+            </section>
+            <section style="width: 70%;">
+              <div class="d-flex m-2">
+                <div class="post-user">
+                  <span class="user">{{ msgData.postUser }}</span>
+                  <span class="date">{{ convertDate(msgData.postTime) }}</span>
                 </div>
-                <div
-                  class="text-left m-2"
-                  v-html="msgData.message"
-                ></div>
-                <div class="text-left m-2">
-                  <a
-                    href="javascript:;"
-                    @click="light(msgData.postId, 1)"
-                  >
-                    亮了( {{ msgData.lightUp.quantityPositive }} )
-                    <span v-if="msgData.lightUp.cookieUserLight === 'fire'">(這篇點了亮)</span>
-                  </a>
-                  <a
-                    href="javascript:;"
-                    class="ml-2"
-                    @click="reply(postId)"
-                  >回復</a>
-                </div>
-              </section>
-              <section
-                class="text-left"
-                style="flex-grow: 1;"
-              >
+              </div>
+              <div
+                class="text-left m-2"
+                v-html="msgData.message"
+              ></div>
+              <div class="text-left m-2">
                 <a
                   href="javascript:;"
+                  class="font12"
+                  @click="light(msgData.postId, 1)"
+                >
+                  亮了( {{ msgData.lightUp.quantityPositive }} )
+                  <!-- <span v-if="msgData.lightUp.cookieUserLight === 'fire'">(這篇點了亮)</span> -->
+                </a>
+              </div>
+            </section>
+            <section
+              class="text-left"
+              style="flex-grow: 1;"
+            >
+              <div class="m-2">
+                <a
+                  href="javascript:;"
+                  class="font12"
                   @click="light(msgData.postId, -1)"
                 >
                   點滅({{ msgData.lightUp.quantityNegative }})
-                  <span v-if="msgData.lightUp.cookieUserLight === 'ceasefire'">(這篇點了滅)</span>
+                  <!-- <span v-if="msgData.lightUp.cookieUserLight === 'ceasefire'">(這篇點了滅)</span> -->
                 </a>
-              </section>
-            </b-col>
-          </b-row>
-        </div>
-      </section>
-    </b-col>
-
-    <b-col cols="12 mt-5">
-      <section class="leaveMessage-region">
-        <b-form-textarea
-          id="textarea"
-          v-model="postMessage"
-          placeholder="寫些啥吧..."
-          rows="3"
-          max-rows="6"
-        ></b-form-textarea>
-        <b-row class="mt-3">
-          <b-col cols="3 d-flex align-items-center">暱稱:</b-col>
-          <b-col cols="9">
-            <b-form-input
-              v-model="nickName"
-              placeholder="Enter your name"
-            ></b-form-input>
+                <a
+                  href="javascript:;"
+                  class="ml-2 font12"
+                  @click="reply(msgData.postId)"
+                >
+                  [回復]
+                </a>
+              </div>
+            </section>
           </b-col>
-        </b-row>
-        <b-button
-          class="mt-3"
-          variant="info"
-          @click="sendMessage"
-        >留下評論</b-button>
+        </div>
       </section>
     </b-col>
   </b-row>
 </template>
 
-
 <script>
+import dayjs from 'dayjs' // ES 2015
+
 export default {
   props: ['articleId'],
   data () {
@@ -165,7 +179,9 @@ export default {
       await this.getMessages()
     },
     convertDate (timeStamp) {
-      return new Date(Number(timeStamp)).toLocaleString()
+      // console.log(timeStamp)
+      return dayjs(Number(timeStamp)).format('YYYY-MM-DD HH:mm:ss')
+      //  new Date(Number(timeStamp)).toLocaleString()
     }
   }
 }

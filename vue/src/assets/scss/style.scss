@@ -1,0 +1,20 @@
+@import './components.scss';
+@import './message.scss';
+
+.font14 {
+    font-size: 14px;
+}
+
+.font12 {
+    font-size: 12px;
+}
+
+.splitter {
+    display: block;
+    margin: 5px 0;
+    border: 0;
+    // border-top: 1px solid #EAEAEA;
+    border-top: 1px solid grey;
+    height: 1px;
+    width: 100%;
+}

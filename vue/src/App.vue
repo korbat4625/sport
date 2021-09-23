@@ -17,20 +17,6 @@ export default {
   },
   data () {
     return {};
-  },
-  beforeCreate () {
-    // const url = 'http://localhost:3000/getAllArticle';
-    // console.log('發出fetch')
-    // const headers = new Headers();
-    // headers.append('Content-Type', 'application/json');
-    // headers.append('Accept', 'application/json');
-    // fetch(url, {
-    //   method: 'GET',
-    //   credentials: 'include',
-    //   headers: headers
-    // }).then(res => {
-    //   console.log(res)
-    // });
   }
 };
 </script>
